@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Saray 💜</title>
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Tipografías elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== VARIABLES DE COLOR ========== */
+        :root {
+            --morado-principal: #6B4E91;
+            --morado-oscuro: #4A3566;
+            --azul-pastel: #A7C7E7;
+            --rosa-pastel: #FFB6C1;
+            --blanco-suave: #FAF9F6;
+        }
+        
+        /* ========== ESTILOS GENERALES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--morado-principal) 0%, var(--morado-oscuro) 100%);
+            color: var(--blanco-suave);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+        
+        /* ========== PANTALLA DE ACCESO ========== */
+        #access-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--morado-principal) 0%, var(--morado-oscuro) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+        
+        #access-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .access-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--rosa-pastel);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .access-box h1 {
+            font-size: 3rem;
+            color: var(--rosa-pastel);
+            margin-bottom: 20px;
+        }
+        
+        .access-box p {
+            color: var(--azul-pastel);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .access-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--azul-pastel);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .access-box input:focus {
+            outline: none;
+            border-color: var(--rosa-pastel);
+            box-shadow: 0 0 15px var(--rosa-pastel);
+        }
+        
+        .access-box button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-pastel));
+            border: none;
+            border-radius: 10px;
+            color: var(--morado-oscuro);
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .access-box button:hover {
+            transform: scale(1.05);
+        }
+        
+        .error-message {
+            color: var(--rosa-pastel);
+            margin-top: 15px;
+            font-style: italic;
+            display: none;
+        }
+        
+        /* ========== CONTENIDO PRINCIPAL ========== */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+        
+        #main-content.visible {
+            opacity: 1;
+        }
+        
+        /* ========== CONTROL DE MÚSICA ========== */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--rosa-pastel);
+            color: var(--morado-oscuro);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+            background: var(--azul-pastel);
+        }
+        
+        /* ========== SECCIÓN HERO ========== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content h1 {
+            font-size: 4rem;
+            color: var(--rosa-pastel);
+            margin-bottom: 30px;
+            animation: fadeInDown 1.5s ease;
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--azul-pastel);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 2s ease;
+        }
+        
+        /* ========== SECCIÓN DE FRASES ========== */
+        .quotes-section {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .quote-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid var(--rosa-pastel);
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 700px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .quote-card:hover {
+            transform: translateX(10px);
+        }
+        
+        .quote-card p {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--azul-pastel);
+            line-height: 1.8;
+        }
+        
+        /* ========== CARTA DE AMOR ========== */
+        .letter-section {
+            padding: 100px 20px;
+        }
+        
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--morado-oscuro);
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .letter-container::before {
+            content: '💜';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+        }
+        
+        .letter-container h2 {
+            color: var(--morado-principal);
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .letter-container p {
+            line-height: 2;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 40px;
+            color: var(--morado-principal);
+        }
+        
+        /* ========== FRASE DEL DÍA ========== */
+        .daily-quote-section {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .daily-quote-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-pastel));
+            color: var(--morado-oscuro);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .daily-quote-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .daily-quote-box p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        
+        .countdown-timer {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 1rem;
+            color: var(--morado-oscuro);
+            font-weight: 400;
+        }
+        
+        .timer-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        /* ========== ANIMACIONES ========== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+        
+        /* ========== CORAZONES FLOTANTES ========== */
+        .floating-heart {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+            color: var(--rosa-pastel);
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .letter-container {
+                padding: 40px 30px;
+            }
+            
+            .access-box {
+                padding: 30px;
+            }
+            
+            .access-box h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== AUDIO DE FONDO ========== -->
+    <!-- Para cambiar la música, reemplaza el src con tu URL de música preferida -->
+    <!-- Música instrumental romántica de ejemplo (dominio público) -->
+    <audio id="background-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- ========== PANTALLA DE ACCESO ========== -->
+    <div id="access-screen">
+        <div class="access-box">
+            <h1>💜</h1>
+            <p>✨ Entrada al Jardín Secreto ✨</p>
+            <p>Por favor, introduce la palabra mágica para continuar</p>
+            <input type="password" id="password-input" placeholder="Escribe aquí..." autocomplete="off">
+            <button onclick="checkPassword()">Entrar</button>
+            <p class="error-message" id="error-message">
+                Esa no es la palabra correcta, mi querida alma. Intenta nuevamente con el corazón.
+            </p>
+        </div>
+    </div>
+    
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <div id="main-content">
+        
+        <!-- Control de música -->
+        <button class="music-control" id="music-toggle" onclick="toggleMusic()">🎵</button>
+        
+        <!-- ========== SECCIÓN HERO ========== -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Para Saray</h1>
+                <p>
+                    En la vastedad del tiempo y la distancia que separa las almas, 
+                    existe un lazo invisible que une a los corazones destinados a encontrarse. 
+                    Tú, Saray, eres la personificación de esa gracia que el universo reserva 
+                    para momentos extraordinarios. Como las páginas de los grandes relatos, 
+                    tu esencia combina la delicadeza de una rosa con la fortaleza de un roble milenario.
+                </p>
+            </div>
+        </section>
+        
+        <!-- ========== SECCIÓN DE FRASES ROMÁNTICAS ========== -->
+        <section class="quotes-section">
+            <div class="container">
+                <h2 class="text-center mb-5" style="font-size: 3rem; color: var(--rosa-pastel);">
+                    Pensamientos que he guardado
+                </h2>
+                
+                <div class="quote-card">
+                    <p>
+                        "Si el amor fuera un idioma, tu nombre sería la palabra más hermosa que jamás se haya pronunciado."
+                    </p>
+                </div>
+                
+                <div class="quote-card">
+                    <p>
+                        "En cada amanecer encuentro un motivo para celebrar tu existencia, pues el mundo es más luminoso desde que tú habitas en él."
+                    </p>
+                </div>
+                
+                <div class="quote-card">
+                    <p>
+                        "Eres como esas melodías antiguas que permanecen en el alma, aquellas que el tiempo no logra desvanecer sino que, al contrario, embellece con cada recuerdo."
+                    </p>
+                </div>
+                
+                <div class="quote-card">
+                    <p>
+                        "Tu sonrisa es el poema más exquisito que mis ojos han tenido el privilegio de contemplar, una obra de arte que ningún escritor podría capturar con justicia."
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ========== FRASE DEL DÍA ========== -->
+        <section class="daily-quote-section">
+            <div class="daily-quote-box">
+                <h2>✨ Frase del dia para ti, Saray ✨</h2>
+                <p id="daily-quote"></p>
+                <div class="countdown-timer">
+                    <p>Próximo mensaje en:</p>
+                    <div class="timer-display" id="countdown-timer">--:--:--</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ========== CARTA DE AMOR ========== -->
+        <section class="letter-section">
+            <div class="letter-container">
+                <h2>otra de esas mil cartas</h2>
+                <p>
+                    Permíteme que estas palabras lleguen a ti como lo hace la brisa primaveral: 
+                    con suavidad, con respeto, y cargadas de la más sincera de las intenciones.
+                </p>
+                <p>
+                    No soy dado a las grandes declaraciones ni a los discursos grandilocuentes, 
+                    mas contigo descubro que el silencio resulta insuficiente. Hay en tu ser 
+                    una luz particular que ilumina incluso los rincones más oscuros del alma, 
+                    y sería una injusticia no reconocerlo.
+                </p>
+                <p>
+                    Admiro en ti no solo la belleza que es evidente a los ojos, sino aquella 
+                    que reside en tu espíritu: tu determinación, tu bondad, esa capacidad tuya 
+                    para transformar lo ordinario en extraordinario. Posees sueños dignos de ser 
+                    alcanzados y metas que merecen cumplirse, pues en ti habita la fuerza 
+                    necesaria para conquistarlos.
+                </p>
+                <p>
+                    Que estas palabras sirvan como testimonio de mi más profundo afecto y admiración. 
+                    Que sepas que en este vasto mundo, existe alguien que valora tu existencia 
+                    de manera inconmensurable y que celebra cada paso que das hacia tus anhelos.
+                </p>
+                <p>
+                    Eres excepcional, Saray. No lo olvides jamás.
+                </p>
+                <p class="signature">
+                    Con el más sincero cariño,<br>
+                    Quien te aprecia profundamente
+                </p>
+            </div>
+        </section>
+        
+        <!-- Corazones flotantes decorativos -->
+        <div class="floating-heart" style="top: 10%; left: 10%; animation-delay: 0s;">💕</div>
+        <div class="floating-heart" style="top: 70%; left: 85%; animation-delay: 2s;">💖</div>
+        <div class="floating-heart" style="top: 40%; left: 5%; animation-delay: 4s;">💗</div>
+        <div class="floating-heart" style="top: 80%; left: 15%; animation-delay: 1s;">💜</div>
+        <div class="floating-heart" style="top: 20%; left: 90%; animation-delay: 3s;">💝</div>
+        
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ========== SISTEMA DE ACCESO CON CONTRASEÑA ==========
+        // La contraseña correcta es: saray
+        
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const accessScreen = document.getElementById('access-screen');
+            const mainContent = document.getElementById('main-content');
+            const correctPassword = 'saray'; // Contraseña correcta
+            
+            // Verificar si la contraseña ingresada es correcta
+            if (passwordInput.value.toLowerCase() === correctPassword) {
+                // Contraseña correcta: ocultar pantalla de acceso
+                accessScreen.classList.add('hidden');
+                
+                // Mostrar contenido principal con animación suave
+                setTimeout(() => {
+                    mainContent.classList.add('visible');
+                    // Intentar reproducir música (algunos navegadores requieren interacción del usuario)
+                    playMusic();
+                }, 500);
+                
+            } else {
+                // Contraseña incorrecta: mostrar mensaje de error elegante
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Añadir efecto de vibración sutil
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+        
+        // Permitir presionar Enter para enviar la contraseña
+        document.getElementById('password-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // ========== CONTROL DE MÚSICA DE FONDO ==========
+        const music = document.getElementById('background-music');
+        let isPlaying = false;
+        
+        function playMusic() {
+            music.volume = 0.3; // Volumen bajo (30%)
+            music.play().then(() => {
+                isPlaying = true;
+                document.getElementById('music-toggle').textContent = '🔊';
+            }).catch(error => {
+                // Si el navegador bloquea la reproducción automática, 
+                // el usuario puede activarla manualmente
+                console.log('Reproducción automática bloqueada. Haz clic en el botón de música.');
+                isPlaying = false;
+            });
+        }
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                document.getElementById('music-toggle').textContent = '🔇';
+            } else {
+                playMusic();
+            }
+        }
+        
+        // ========== FRASE DEL DÍA PARA SARAY ==========
+        // Esta función muestra una frase diferente cada 24 horas
+        // usando localStorage para recordar qué frase se mostró y cuándo
+        
+        const dailyQuotes = [
+            "Saray, tus sueños no son solo posibles, son inevitables cuando pones tu corazón en ellos. Eres más capaz de lo que imaginas.",
+            "Que este día te recuerde lo hermosa que eres, no solo por fuera, sino por la luz que irradias desde tu interior.",
+            "Cada meta que te propones está más cerca de lo que crees. Tu determinación es tu superpoder, Saray.",
+            "Eres una obra de arte en constante creación. Nunca dudes del valor de tu existencia.",
+            "Que hoy encuentres razones para sonreír y recordar que mereces todas las cosas maravillosas que la vida puede ofrecer.",
+            "Cada día es una página en blanco. Escribe algo hermoso, algo valiente, algo tuyo.",
+            "Los obstáculos son solo peldaños hacia tu grandeza. Sigue adelante con esa gracia que te caracteriza.",
+            "Eres especial de maneras que aún estás descubriendo. Cada día revelas una nueva faceta de tu belleza interior.",
+            "Tus metas no son solo sueños, son promesas que te haces a ti misma. Y tú siempre cumples tus promesas.",
+            "Que este día te traiga paz, alegría y la certeza de que eres profundamente valiosa."
+        ];
+        
+        function getDailyQuote() {
+            const today = new Date().toDateString(); // Fecha de hoy como string
+            const storedDate = localStorage.getItem('dailyQuoteDate');
+            const storedIndex = localStorage.getItem('dailyQuoteIndex');
+            
+            // Si es un nuevo día o no hay datos guardados, elegir nueva frase
+            if (storedDate !== today || storedIndex === null) {
+                const randomIndex = Math.floor(Math.random() * dailyQuotes.length);
+                localStorage.setItem('dailyQuoteDate', today);
+                localStorage.setItem('dailyQuoteIndex', randomIndex);
+                return dailyQuotes[randomIndex];
+            } else {
+                // Si es el mismo día, mostrar la misma frase
+                return dailyQuotes[parseInt(storedIndex)];
+            }
+        }
+        
+        // ========== CONTADOR REGRESIVO PARA EL PRÓXIMO MENSAJE ==========
+        // Actualiza cada segundo mostrando cuánto tiempo falta para el próximo mensaje
+        
+        function updateCountdown() {
+            const now = new Date();
+            
+            // Calcular la medianoche de mañana (00:00:00)
+            const tomorrow = new Date(now);
+            tomorrow.setHours(24, 0, 0, 0);
+            
+            // Diferencia en milisegundos
+            const difference = tomorrow - now;
+            
+            // Convertir a horas, minutos y segundos
+            const hours = Math.floor(difference / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            // Formatear con dos dígitos
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            
+            // Mostrar en el elemento
+            const timerElement = document.getElementById('countdown-timer');
+            if (timerElement) {
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            }
+        }
+        
+        // Mostrar la frase del día al cargar la página
+        document.getElementById('daily-quote').textContent = getDailyQuote();
+        
+        // Iniciar el contador regresivo inmediatamente
+        updateCountdown();
+        
+        // Actualizar el contador cada segundo
+        setInterval(updateCountdown, 1000);
+        
+        // ========== ANIMACIÓN SHAKE PARA ERROR DE CONTRASEÑA ==========
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+    </script>
+</body>
+</html>
