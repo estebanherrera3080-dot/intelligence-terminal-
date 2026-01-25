@@ -427,9 +427,121 @@
                 padding: 30px 20px;
             }
         }
+
+        /* ========== SISTEMA DE ACCESO PRIVADO ========== */
+        #access-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        #access-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .access-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .access-box h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .access-box p {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .access-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .access-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .access-box button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: var(--dark);
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .access-box button:hover {
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-style: italic;
+            display: none;
+        }
+
+        /* ========== CONTENIDO PRINCIPAL ========== */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+    <!-- ========== PANTALLA DE ACCESO ========== -->
+    <div id="access-screen">
+        <div class="access-box">
+            <h1>💜</h1>
+            <p>✨ Acceso Privado ✨</p>
+            <p>Por favor, introduce la contraseña para continuar</p>
+            <input type="password" id="password-input" placeholder="Escribe aquí..." autocomplete="off">
+            <button onclick="checkPassword()">Entrar</button>
+            <p class="error-message" id="error-message">
+                Contraseña incorrecta. Intenta nuevamente.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <div id="main-content">
     <div class="floating-hearts" id="floatingHearts"></div>
 
     <!-- Hero Section -->
@@ -685,8 +797,60 @@
         </div>
     </footer>
 
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ========== SISTEMA DE ACCESO CON CONTRASEÑA ==========
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const accessScreen = document.getElementById('access-screen');
+            const mainContent = document.getElementById('main-content');
+            const correctPassword = 'saray'; // Contraseña correcta
+            
+            // Verificar si la contraseña ingresada es correcta
+            if (passwordInput.value.toLowerCase() === correctPassword) {
+                // Contraseña correcta: ocultar pantalla de acceso
+                accessScreen.classList.add('hidden');
+                
+                // Mostrar contenido principal con animación suave
+                setTimeout(() => {
+                    mainContent.classList.add('visible');
+                }, 500);
+                
+            } else {
+                // Contraseña incorrecta: mostrar mensaje de error elegante
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Añadir efecto de vibración sutil
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+        
+        // Permitir presionar Enter para enviar la contraseña
+        document.getElementById('password-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // ========== ANIMACIÓN SHAKE PARA ERROR DE CONTRASEÑA ==========
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
         // Smooth scroll
         function scrollToLetter() {
             document.getElementById('letter').scrollIntoView({ 
