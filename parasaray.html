@@ -1,6 +1,6 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
-<head><!
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Saray - Una Historia de Amor</title>
@@ -401,13 +401,114 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
+            .daily-literature-box {
+                padding: 40px 30px;
+            }
+            
+            .daily-literature-quote {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
             .hero-title {
-                font-size: 3rem;
+                font-size: 3.5rem;
             }
             
             .hero-subtitle {
                 font-size: 1.5rem;
+            }
+            
+            .hero-content {
+                padding: 30px 15px;
+            }
+            
+            .quote-card {
+                padding: 40px 25px;
+                margin: 15px 0;
+            }
+            
+            .quote-text {
+                font-size: 1.3rem;
+            }
+            
+            .timeline::before {
+                left: 25px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+            }
+            
+            .timeline-dot {
+                left: 25px;
+                width: 25px;
+                height: 25px;
+                border: 4px solid white;
+            }
+            
+            .letter-container {
+                padding: 45px 30px;
+            }
+            
+            .letter-body {
+                font-size: 1.1rem;
+            }
+            
+            .memory-card {
+                margin-bottom: 25px;
+            }
+            
+            .memory-icon {
+                padding: 45px;
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .heart {
+                font-size: 3rem;
+            }
+            
+            .hero-content {
+                padding: 25px 15px;
+            }
+            
+            .lead {
+                font-size: 1rem !important;
+            }
+            
+            .quote-section {
+                padding: 50px 0;
+            }
+            
+            .quote-card {
+                padding: 25px 20px;
+                margin: 12px 0;
+                border-radius: 15px;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            
+            .quote-author {
+                font-size: 0.95rem;
+            }
+            
+            .timeline-section {
+                padding: 50px 0;
             }
             
             .timeline::before {
@@ -417,15 +518,469 @@
             .timeline-content {
                 width: calc(100% - 60px);
                 margin-left: 60px !important;
+                padding: 20px;
+                border-radius: 15px;
             }
             
             .timeline-dot {
                 left: 20px;
+                width: 22px;
+                height: 22px;
+                border: 3px solid white;
+            }
+            
+            .timeline-icon {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .timeline-content h4 {
+                font-size: 1rem;
+            }
+            
+            .timeline-content p {
+                font-size: 0.9rem;
+            }
+            
+            .letter-section {
+                padding: 50px 0;
             }
             
             .letter-container {
                 padding: 30px 20px;
+                max-width: 100%;
+                border-radius: 15px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             }
+            
+            .letter-header {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+            
+            .letter-body {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+            
+            .letter-body p {
+                margin-bottom: 15px;
+            }
+            
+            .letter-signature {
+                font-size: 1.5rem;
+                margin-top: 25px;
+            }
+            
+            .gallery-section {
+                padding: 50px 0;
+            }
+            
+            .memory-card {
+                margin-bottom: 20px;
+                border-radius: 15px;
+            }
+            
+            .memory-icon {
+                padding: 40px 30px;
+                font-size: 2.5rem;
+            }
+            
+            .memory-content {
+                padding: 20px;
+            }
+            
+            .memory-title {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+            
+            .memory-content p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            .love-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .daily-literature-section {
+                padding: 50px 15px;
+            }
+            
+            .daily-literature-box {
+                padding: 30px 20px;
+                border-radius: 15px;
+                box-shadow: 0 15px 40px rgba(139, 71, 137, 0.2);
+            }
+            
+            .daily-literature-box h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .daily-literature-quote {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                margin-bottom: 20px;
+            }
+            
+            .daily-literature-author {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+            
+            .literature-countdown {
+                padding: 15px;
+                font-size: 0.9rem;
+                border-radius: 10px;
+            }
+            
+            .literature-timer {
+                font-size: 1rem;
+                margin-top: 8px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .display-4 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            
+            .footer {
+                padding: 30px 15px;
+            }
+            
+            .footer p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                min-height: auto;
+                padding: 60px 0;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .heart {
+                font-size: 2.5rem;
+            }
+            
+            .heart-container {
+                margin: 20px auto;
+            }
+            
+            .lead {
+                font-size: 0.9rem !important;
+                line-height: 1.5;
+            }
+            
+            .quote-section {
+                padding: 30px 0;
+            }
+            
+            .quote-card {
+                padding: 20px 15px;
+                margin: 10px 0;
+                border-radius: 12px;
+            }
+            
+            .quote-text {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            .quote-author {
+                font-size: 0.9rem;
+            }
+            
+            .quote-icon {
+                font-size: 2.5rem;
+            }
+            
+            .timeline-section {
+                padding: 30px 0;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                margin-bottom: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .timeline-dot {
+                left: 15px;
+                width: 20px;
+                height: 20px;
+                border: 2px solid white;
+                top: 20px;
+            }
+            
+            .timeline-icon {
+                font-size: 1.3rem;
+                margin-bottom: 8px;
+            }
+            
+            .timeline-content h4 {
+                font-size: 0.95rem;
+            }
+            
+            .timeline-content p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            .letter-section {
+                padding: 30px 0;
+            }
+            
+            .letter-container {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+            
+            .letter-header p {
+                font-size: 0.9rem;
+            }
+            
+            .letter-body {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            
+            .letter-body p {
+                margin-bottom: 12px;
+            }
+            
+            .letter-signature {
+                font-size: 1.2rem;
+                margin-top: 20px;
+            }
+            
+            .gallery-section {
+                padding: 30px 0;
+            }
+            
+            .display-4 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .memory-card {
+                margin-bottom: 15px;
+                border-radius: 12px;
+            }
+            
+            .memory-icon {
+                padding: 30px 20px;
+                font-size: 2rem;
+            }
+            
+            .memory-content {
+                padding: 15px;
+            }
+            
+            .memory-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .memory-content p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            .love-button {
+                padding: 10px 25px;
+                font-size: 0.95rem;
+                border-radius: 40px;
+            }
+            
+            .daily-literature-section {
+                padding: 30px 10px;
+            }
+            
+            .daily-literature-box {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+            
+            .daily-literature-box::before {
+                font-size: 80px;
+            }
+            
+            .daily-literature-box h2 {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+            
+            .daily-literature-quote {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+            
+            .daily-literature-author {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            
+            .literature-countdown {
+                padding: 12px;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+            
+            .literature-timer {
+                font-size: 0.95rem;
+                margin-top: 6px;
+            }
+            
+            #access-screen {
+                padding: 0 10px;
+            }
+            
+            .access-box {
+                width: 100%;
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+            
+            .access-box h1 {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .access-box p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+            
+            .access-box input,
+            .access-box button {
+                padding: 12px;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+            
+            .footer {
+                padding: 20px 10px;
+            }
+            
+            .footer p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .display-4 {
+                font-size: 1.3rem;
+            }
+            
+            .love-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ========== SECCIÓN DE FRASE DEL DÍA LITERARIA ========== */
+        .daily-literature-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--light) 0%, rgba(212, 165, 212, 0.1) 100%);
+            position: relative;
+        }
+
+        .daily-literature-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(139, 71, 137, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-literature-box::before {
+            content: '📖';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            top: 20px;
+            right: 20px;
+        }
+
+        .daily-literature-box h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .daily-literature-quote {
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 2;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .daily-literature-author {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .literature-countdown {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .literature-timer {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            letter-spacing: 2px;
         }
 
         /* ========== SISTEMA DE ACCESO PRIVADO ========== */
@@ -530,7 +1085,7 @@
     <div id="access-screen">
         <div class="access-box">
             <h1>💜</h1>
-            <p>✨ Acceso Privado ✨</p>
+            <p>✨entrada al jardin secreto✨</p>
             <p>Por favor, introduce la contraseña para continuar</p>
             <input type="password" id="password-input" placeholder="Escribe aquí..." autocomplete="off">
             <button onclick="checkPassword()">Entrar</button>
@@ -689,7 +1244,8 @@
                 <div class="letter-signature">
                     Tu eterno admirador
                     <div>
-                    Esteban.
+                        Esteban
+                    </div>
                     <div class="mt-2">
                         <i class="fas fa-heart" style="color: var(--primary);"></i>
                     </div>
@@ -723,7 +1279,7 @@
                         </div>
                         <div class="memory-content">
                             <h4 class="memory-title">Tu Inteligencia</h4>
-                            <p>Cada conversación contigo es unica. tu mente me fascina, aunque no lo creas.</p>
+                            <p>Cada conversación contigo es única. Tu mente me fascina, aunque no lo creas.</p>
                         </div>
                     </div>
                 </div>
@@ -781,6 +1337,21 @@
         </div>
     </section>
 
+    <!-- Frase del Día Literaria -->
+    <section class="daily-literature-section">
+        <div class="container">
+            <div class="daily-literature-box">
+                <h2>✨ Frase Literaria del Día ✨</h2>
+                <p class="daily-literature-quote" id="daily-literature-quote"></p>
+                <p class="daily-literature-author" id="daily-literature-author"></p>
+                <div class="literature-countdown">
+                    <p>Próxima frase en:</p>
+                    <div class="literature-timer" id="literature-countdown">--:--:--</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -810,7 +1381,7 @@
             const correctPassword = 'saray'; // Contraseña correcta
             
             // Verificar si la contraseña ingresada es correcta
-            if (passwordInput.value.toLowerCase() === correctPassword) {
+            if (passwordInput && passwordInput.value.toLowerCase() === correctPassword) {
                 // Contraseña correcta: ocultar pantalla de acceso
                 accessScreen.classList.add('hidden');
                 
@@ -821,22 +1392,33 @@
                 
             } else {
                 // Contraseña incorrecta: mostrar mensaje de error elegante
-                errorMessage.style.display = 'block';
-                passwordInput.value = '';
-                passwordInput.focus();
-                
-                // Añadir efecto de vibración sutil
-                passwordInput.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    passwordInput.style.animation = '';
-                }, 500);
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+                }
+                if (passwordInput) {
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Añadir efecto de vibración sutil
+                    passwordInput.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        passwordInput.style.animation = '';
+                    }, 500);
+                }
             }
         }
         
         // Permitir presionar Enter para enviar la contraseña
-        document.getElementById('password-input').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                checkPassword();
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            if (passwordInput) {
+                passwordInput.focus();
+                passwordInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        checkPassword();
+                    }
+                });
             }
         });
         
@@ -850,6 +1432,124 @@
             }
         `;
         document.head.appendChild(style);
+        
+        // ========== FRASE LITERARIA DEL DÍA ==========
+        // Array con frases de grandes escritores de literatura
+        const literaryQuotes = [
+            {
+                text: "Es un hecho universalmente reconocido que un hombre soltero, poseedor de una buena fortuna, necesita una esposa.",
+                author: "Jane Austen - Orgullo y Prejuicio"
+            },
+            {
+                text: "No es la montaña lo que vencemos, sino a nosotros mismos.",
+                author: "Edmund Hillary"
+            },
+            {
+                text: "Es mejor una vela encendida que maldecir la oscuridad.",
+                author: "Confucio"
+            },
+            {
+                text: "La vida es lo que sucede mientras estás ocupado haciendo otros planes.",
+                author: "John Lennon"
+            },
+            {
+                text: "El amor nunca falla. Lo que falla siempre es nuestra capacidad de amar.",
+                author: "Alejandro Jodorowsky"
+            },
+            {
+                text: "Vivimos en el futuro y el presente muere para nosotros en todo momento; pero el presente nunca fue nuestro.",
+                author: "C.S. Lewis"
+            },
+            {
+                text: "La soledad es hermosa cuando tienes con quién no hablar.",
+                author: "Gabriel García Márquez"
+            },
+            {
+                text: "Éramos juntos. Me olvido del resto.",
+                author: "Emily Dickinson"
+            },
+            {
+                text: "El corazón tiene sus razones que la razón desconoce.",
+                author: "Blaise Pascal"
+            },
+            {
+                text: "La literatura es la prueba más noble de que los hombres pueden compartir sus emociones.",
+                author: "Oscar Wilde"
+            },
+            {
+                text: "Cada persona que conocemos deja una huella en nuestro corazón.",
+                author: "Anonimo (Popular)"
+            },
+            {
+                text: "La belleza de la escritura reside en que despierta en nosotros una sensación que la vida diaria no evoca.",
+                author: "Anaïs Nin"
+            },
+            {
+                text: "Tú eres el más bonito de todos los mares, el más puro de los ríos, el más lindo de los días.",
+                author: "Mario Benedetti"
+            },
+            {
+                text: "Amar es cuando él comes las papas fritas de tu plato sin pedir permiso.",
+                author: "Avril Lavigne"
+            },
+            {
+                text: "Si encuentras a alguien a quien amas, déjaselo saber. La vida es demasiado corta y el amor es demasiado raro.",
+                author: "Mark Twain"
+            }
+        ];
+
+        function getDailyLiteraryQuote() {
+            const today = new Date().toDateString();
+            const storedDate = localStorage.getItem('literaryQuoteDate');
+            const storedIndex = localStorage.getItem('literaryQuoteIndex');
+            
+            if (storedDate !== today || storedIndex === null) {
+                const randomIndex = Math.floor(Math.random() * literaryQuotes.length);
+                localStorage.setItem('literaryQuoteDate', today);
+                localStorage.setItem('literaryQuoteIndex', randomIndex);
+                return literaryQuotes[randomIndex];
+            } else {
+                return literaryQuotes[parseInt(storedIndex)];
+            }
+        }
+
+        // ========== CONTADOR REGRESIVO LITERARIO ==========
+        function updateLiteraryCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setHours(24, 0, 0, 0);
+            
+            const difference = tomorrow - now;
+            
+            const hours = Math.floor(difference / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            
+            const timerElement = document.getElementById('literature-countdown');
+            if (timerElement) {
+                timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            }
+        }
+
+        // Mostrar frase literaria del día
+        const dailyQuote = getDailyLiteraryQuote();
+        const quoteElement = document.getElementById('daily-literature-quote');
+        const authorElement = document.getElementById('daily-literature-author');
+        
+        if (quoteElement && authorElement) {
+            quoteElement.textContent = `"${dailyQuote.text}"`;
+            authorElement.textContent = `— ${dailyQuote.author}`;
+        }
+        
+        // Iniciar contador
+        updateLiteraryCountdown();
+        
+        // Actualizar cada segundo
+        setInterval(updateLiteraryCountdown, 1000);
         
         // Smooth scroll
         function scrollToLetter() {
