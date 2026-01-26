@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Saray - Una Historia de Amor</title>
+    <title>Para ti - Una pequeña Historia de Amor</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -1078,6 +1078,57 @@
         #main-content.visible {
             opacity: 1;
         }
+
+        /* ========== BOTÓN DE CONTROL DE MÚSICA ==========*/
+        .music-control-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #8B4789, #D4A5D4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(139, 71, 137, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-control-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(139, 71, 137, 0.6);
+        }
+
+        .music-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .music-control-btn.playing::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 71, 137, 0.5);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
     </style>
     <style>
         @keyframes shake {
@@ -1124,6 +1175,16 @@
     </script>
 </head>
 <body>
+    <!-- AUDIO DE FONDO ROMÁNTICO -->
+    <audio id="background-music" loop preload="metadata">
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+        <source src="https://archive.org/download/RussianPianoSchool/Debussy%20-%20Clair%20de%20Lune%20.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BOTÓN DE CONTROL DE MÚSICA -->
+    <button class="music-control-btn" id="music-control-btn" title="Alternar música">🎵</button>
+    
     <!-- ========== PANTALLA DE ACCESO ========== -->
     <div id="access-screen">
         <div class="access-box">
@@ -1145,7 +1206,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Para Saray</h1>
+            <h1 class="hero-title">Para Ti</h1>
             <p class="hero-subtitle">Mi Elizabeth Bennet</p>
             <div class="heart-container">
                 <i class="fas fa-heart heart"></i>
@@ -1268,8 +1329,8 @@
         <div class="container">
             <div class="letter-container">
                 <div class="letter-header">
-                    <p class="mb-0">Con todo mi amor,</p>
-                    <p>En este día especial</p>
+                    <p class="mb-0">una de esas mil cartas,</p>
+          
                 </div>
                 <div class="letter-body">
                     <p>Querida Saray,</p>
@@ -1433,64 +1494,84 @@
         // Array con frases de grandes escritores de literatura
         const literaryQuotes = [
             {
-                text: "Es un hecho universalmente reconocido que un hombre soltero, poseedor de una buena fortuna, necesita una esposa.",
-                author: "Jane Austen - Orgullo y Prejuicio"
-            },
-            {
                 text: "No es la montaña lo que vencemos, sino a nosotros mismos.",
-                author: "Edmund Hillary"
-            },
-            {
-                text: "Es mejor una vela encendida que maldecir la oscuridad.",
-                author: "Confucio"
-            },
-            {
-                text: "La vida es lo que sucede mientras estás ocupado haciendo otros planes.",
-                author: "John Lennon"
-            },
-            {
-                text: "El amor nunca falla. Lo que falla siempre es nuestra capacidad de amar.",
-                author: "Alejandro Jodorowsky"
-            },
-            {
-                text: "Vivimos en el futuro y el presente muere para nosotros en todo momento; pero el presente nunca fue nuestro.",
-                author: "C.S. Lewis"
+                author: "Gabriel García Márquez - Cien Años de Soledad"
             },
             {
                 text: "La soledad es hermosa cuando tienes con quién no hablar.",
                 author: "Gabriel García Márquez"
             },
             {
-                text: "Éramos juntos. Me olvido del resto.",
-                author: "Emily Dickinson"
-            },
-            {
-                text: "El corazón tiene sus razones que la razón desconoce.",
-                author: "Blaise Pascal"
-            },
-            {
-                text: "La literatura es la prueba más noble de que los hombres pueden compartir sus emociones.",
-                author: "Oscar Wilde"
-            },
-            {
-                text: "Cada persona que conocemos deja una huella en nuestro corazón.",
-                author: "Anonimo (Popular)"
-            },
-            {
-                text: "La belleza de la escritura reside en que despierta en nosotros una sensación que la vida diaria no evoca.",
-                author: "Anaïs Nin"
-            },
-            {
                 text: "Tú eres el más bonito de todos los mares, el más puro de los ríos, el más lindo de los días.",
-                author: "Mario Benedetti"
+                author: "Mario Benedetti - La tregua"
             },
             {
-                text: "Amar es cuando él comes las papas fritas de tu plato sin pedir permiso.",
-                author: "Avril Lavigne"
+                text: "Que nadie sea enemigo de un hombre. Que sea hombre sea solamente el amigo de los hombres.",
+                author: "Jorge Luis Borges - El Aleph"
             },
             {
-                text: "Si encuentras a alguien a quien amas, déjaselo saber. La vida es demasiado corta y el amor es demasiado raro.",
-                author: "Mark Twain"
+                text: "La eternidad es una de las raras cosas que inspiran al hombre la idea de lo infinito.",
+                author: "Jorge Luis Borges"
+            },
+            {
+                text: "No hay un personaje en la literatura que no sea reflejo de la vida real, aunque sea de la imaginación.",
+                author: "Julio Cortázar - Rayuela"
+            },
+            {
+                text: "Todo verdadero arte es testimonio de la búsqueda del hombre por la verdad.",
+                author: "Julio Cortázar"
+            },
+            {
+                text: "El tiempo es una invención del hombre para medir la distancia entre los momentos que no pueden tocarse.",
+                author: "Pablo Neruda"
+            },
+            {
+                text: "Puedo escribir los versos más tristes esta noche. La noche está estrellada, y tirante, azul, sobre mis ojos.",
+                author: "Pablo Neruda - Veinte poemas de amor y una canción de desesperada"
+            },
+            {
+                text: "La verdadera generosidad hacia el futuro reside en dar todo al presente.",
+                author: "Albert Camus - El mito de Sísifo"
+            },
+            {
+                text: "El hombre está condenado a ser libre; condenado porque no se ha creado a sí mismo, y sin embargo, responsable de todo lo que hace.",
+                author: "Jean-Paul Sartre - El Ser y la Nada"
+            },
+            {
+                text: "La prosa es arquitectura, no decoración, y la buena prosa es como un buen edificio.",
+                author: "Ernest Hemingway"
+            },
+            {
+                text: "En la vida hay momentos felices. Su existencia consolida la creencia de que la vida merece la pena.",
+                author: "Fiódor Dostoievski - Crimen y Castigo"
+            },
+            {
+                text: "La belleza salva al mundo, pero ¿quién salvará la belleza?",
+                author: "Fiódor Dostoievski"
+            },
+            {
+                text: "Es un hecho universalmente reconocido que un hombre soltero, poseedor de una buena fortuna, necesita una esposa.",
+                author: "Jane Austen - Orgullo y Prejuicio"
+            },
+            {
+                text: "Una de las cosas que la felicidad hace a la gente es hacerla parecerse a sí misma más aún que lo que es naturalmente.",
+                author: "Leo Tolstói - Anna Karenina"
+            },
+            {
+                text: "Todas las familias felices se parecen unas a otras; cada familia infeliz es infeliz a su manera.",
+                author: "Leo Tolstói - Anna Karenina"
+            },
+            {
+                text: "Una cosa sin la otra es incompleta. El hombre sin la mujer es incompleto, y la mujer sin el hombre también.",
+                author: "Gustave Flaubert - Madame Bovary"
+            },
+            {
+                text: "Por mucho que un hombre haya viajado, nunca está fuera del lugar. El alma viaja siempre con él.",
+                author: "Víctor Hugo - Los Miserables"
+            },
+            {
+                text: "El amor infinito es aquel que no tiene medida ni límite, aquel que todo lo abarca y todo lo perdona.",
+                author: "Dante Alighieri - La Divina Comedia"
             }
         ];
 
@@ -1634,6 +1715,65 @@
             }
         `;
         document.head.appendChild(style);
+
+        // ========== SISTEMA DE AUDIO DE FONDO ROMÁNTICO ==========
+        const backgroundMusic = document.getElementById('background-music');
+        const musicControlBtn = document.getElementById('music-control-btn');
+        let isMusicPlaying = false;
+
+        // Intentar reproducir música al cargar
+        function startBackgroundMusic() {
+            if (backgroundMusic && !isMusicPlaying) {
+                backgroundMusic.volume = 0.15; // Volumen muy bajo (15%) para ser discreto y relajante
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isMusicPlaying = true;
+                        if (musicControlBtn) {
+                            musicControlBtn.classList.add('playing');
+                        }
+                        console.log('✓ Música de fondo iniciada correctamente');
+                    }).catch(error => {
+                        console.log('✗ Error al reproducir: ' + error);
+                        isMusicPlaying = false;
+                    });
+                }
+            }
+        }
+
+        // Pausar música
+        function stopBackgroundMusic() {
+            if (backgroundMusic && isMusicPlaying) {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                if (musicControlBtn) {
+                    musicControlBtn.classList.remove('playing');
+                }
+                console.log('Música pausada');
+            }
+        }
+
+        // Toggle música al hacer clic en el botón
+        if (musicControlBtn) {
+            musicControlBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isMusicPlaying) {
+                    stopBackgroundMusic();
+                } else {
+                    startBackgroundMusic();
+                }
+            });
+        }
+
+        // Pausar música cuando el usuario sale de la página
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && backgroundMusic && isMusicPlaying) {
+                stopBackgroundMusic();
+            } else if (!document.hidden && backgroundMusic && !isMusicPlaying) {
+                startBackgroundMusic();
+            }
+        });
     </script>
 </body>
 </html>
