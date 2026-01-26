@@ -1575,58 +1575,85 @@
             }
         ];
 
+        // ========== SISTEMA DE FRASE LITERARIA DEL DÍA (24 HORAS) ==========
+        
         function getDailyLiteraryQuote() {
+            // Obtener la fecha actual en formato ISO para comparación
             const today = new Date().toDateString();
             const storedDate = localStorage.getItem('literaryQuoteDate');
             const storedIndex = localStorage.getItem('literaryQuoteIndex');
             
+            // Si es un nuevo día o no hay datos guardados, seleccionar una nueva frase
             if (storedDate !== today || storedIndex === null) {
                 const randomIndex = Math.floor(Math.random() * literaryQuotes.length);
                 localStorage.setItem('literaryQuoteDate', today);
                 localStorage.setItem('literaryQuoteIndex', randomIndex);
+                console.log(`✓ Nueva frase seleccionada para hoy (índice: ${randomIndex})`);
                 return literaryQuotes[randomIndex];
             } else {
-                return literaryQuotes[parseInt(storedIndex)];
+                // Si es el mismo día, mostrar la misma frase
+                const index = parseInt(storedIndex);
+                console.log(`✓ Mostrando frase guardada de hoy (índice: ${index})`);
+                return literaryQuotes[index];
             }
         }
 
-        // ========== CONTADOR REGRESIVO LITERARIO ==========
+        // ========== CONTADOR REGRESIVO LITERARIO (24 HORAS) ==========
         function updateLiteraryCountdown() {
             const now = new Date();
+            
+            // Calcular medianoche de mañana (00:00:00)
             const tomorrow = new Date(now);
             tomorrow.setHours(24, 0, 0, 0);
             
+            // Diferencia en milisegundos
             const difference = tomorrow - now;
             
+            // Convertir a horas, minutos y segundos
             const hours = Math.floor(difference / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
             
+            // Formatear con dos dígitos
             const formattedHours = String(hours).padStart(2, '0');
             const formattedMinutes = String(minutes).padStart(2, '0');
             const formattedSeconds = String(seconds).padStart(2, '0');
             
+            // Actualizar elemento en la página
             const timerElement = document.getElementById('literature-countdown');
             if (timerElement) {
                 timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
         }
 
-        // Mostrar frase literaria del día
-        const dailyQuote = getDailyLiteraryQuote();
-        const quoteElement = document.getElementById('daily-literature-quote');
-        const authorElement = document.getElementById('daily-literature-author');
-        
-        if (quoteElement && authorElement) {
-            quoteElement.textContent = `"${dailyQuote.text}"`;
-            authorElement.textContent = `— ${dailyQuote.author}`;
+        // Inicializar: Mostrar frase literaria del día
+        function initializeDailyQuote() {
+            const dailyQuote = getDailyLiteraryQuote();
+            const quoteElement = document.getElementById('daily-literature-quote');
+            const authorElement = document.getElementById('daily-literature-author');
+            
+            if (quoteElement && authorElement) {
+                quoteElement.textContent = `"${dailyQuote.text}"`;
+                authorElement.textContent = `— ${dailyQuote.author}`;
+                console.log(`✓ Frase mostrada: ${dailyQuote.author}`);
+            } else {
+                console.warn('⚠ Elementos de frase diaria no encontrados en el DOM');
+            }
+            
+            // Iniciar contador regresivo
+            updateLiteraryCountdown();
+        }
+
+        // Ejecutar inicialización cuando el DOM está listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeDailyQuote);
+        } else {
+            initializeDailyQuote();
         }
         
-        // Iniciar contador
-        updateLiteraryCountdown();
-        
-        // Actualizar cada segundo
+        // Actualizar contador cada segundo
         setInterval(updateLiteraryCountdown, 1000);
+        
         
         // Smooth scroll
         function scrollToLetter() {
