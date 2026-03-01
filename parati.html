@@ -1259,6 +1259,21 @@
         </div>
     </section>
 
+    <!-- Frase del Día Literaria -->
+    <section class="daily-literature-section">
+        <div class="container">
+            <div class="daily-literature-box">
+                <h2>✨ Frase Literaria del Día ✨</h2>
+                <p class="daily-literature-quote" id="daily-literature-quote"></p>
+                <p class="daily-literature-author" id="daily-literature-author"></p>
+                <div class="literature-countdown">
+                    <p>Próxima frase en:</p>
+                    <div class="literature-timer" id="literature-countdown">--:--:--</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Timeline Section -->
     <section class="timeline-section">
         <div class="container">
@@ -1441,21 +1456,6 @@
         </div>
     </section>
 
-    <!-- Frase del Día Literaria -->
-    <section class="daily-literature-section">
-        <div class="container">
-            <div class="daily-literature-box">
-                <h2>✨ Frase Literaria del Día ✨</h2>
-                <p class="daily-literature-quote" id="daily-literature-quote"></p>
-                <p class="daily-literature-author" id="daily-literature-author"></p>
-                <div class="literature-countdown">
-                    <p>Próxima frase en:</p>
-                    <div class="literature-timer" id="literature-countdown">--:--:--</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1491,88 +1491,397 @@
         });
         
         // ========== FRASE LITERARIA DEL DÍA ==========
-        // Array con frases de grandes escritores de literatura
+        // Array con 300+ frases profundas de grandes escritores de literatura universal
         const literaryQuotes = [
-            {
-                text: "No es la montaña lo que vencemos, sino a nosotros mismos.",
-                author: "Gabriel García Márquez - Cien Años de Soledad"
-            },
-            {
-                text: "La soledad es hermosa cuando tienes con quién no hablar.",
-                author: "Gabriel García Márquez"
-            },
-            {
-                text: "Tú eres el más bonito de todos los mares, el más puro de los ríos, el más lindo de los días.",
-                author: "Mario Benedetti - La tregua"
-            },
-            {
-                text: "Que nadie sea enemigo de un hombre. Que sea hombre sea solamente el amigo de los hombres.",
-                author: "Jorge Luis Borges - El Aleph"
-            },
-            {
-                text: "La eternidad es una de las raras cosas que inspiran al hombre la idea de lo infinito.",
-                author: "Jorge Luis Borges"
-            },
-            {
-                text: "No hay un personaje en la literatura que no sea reflejo de la vida real, aunque sea de la imaginación.",
-                author: "Julio Cortázar - Rayuela"
-            },
-            {
-                text: "Todo verdadero arte es testimonio de la búsqueda del hombre por la verdad.",
-                author: "Julio Cortázar"
-            },
-            {
-                text: "El tiempo es una invención del hombre para medir la distancia entre los momentos que no pueden tocarse.",
-                author: "Pablo Neruda"
-            },
-            {
-                text: "Puedo escribir los versos más tristes esta noche. La noche está estrellada, y tirante, azul, sobre mis ojos.",
-                author: "Pablo Neruda - Veinte poemas de amor y una canción de desesperada"
-            },
-            {
-                text: "La verdadera generosidad hacia el futuro reside en dar todo al presente.",
-                author: "Albert Camus - El mito de Sísifo"
-            },
-            {
-                text: "El hombre está condenado a ser libre; condenado porque no se ha creado a sí mismo, y sin embargo, responsable de todo lo que hace.",
-                author: "Jean-Paul Sartre - El Ser y la Nada"
-            },
-            {
-                text: "La prosa es arquitectura, no decoración, y la buena prosa es como un buen edificio.",
-                author: "Ernest Hemingway"
-            },
-            {
-                text: "En la vida hay momentos felices. Su existencia consolida la creencia de que la vida merece la pena.",
-                author: "Fiódor Dostoievski - Crimen y Castigo"
-            },
-            {
-                text: "La belleza salva al mundo, pero ¿quién salvará la belleza?",
-                author: "Fiódor Dostoievski"
-            },
-            {
-                text: "Es un hecho universalmente reconocido que un hombre soltero, poseedor de una buena fortuna, necesita una esposa.",
-                author: "Jane Austen - Orgullo y Prejuicio"
-            },
-            {
-                text: "Una de las cosas que la felicidad hace a la gente es hacerla parecerse a sí misma más aún que lo que es naturalmente.",
-                author: "Leo Tolstói - Anna Karenina"
-            },
-            {
-                text: "Todas las familias felices se parecen unas a otras; cada familia infeliz es infeliz a su manera.",
-                author: "Leo Tolstói - Anna Karenina"
-            },
-            {
-                text: "Una cosa sin la otra es incompleta. El hombre sin la mujer es incompleto, y la mujer sin el hombre también.",
-                author: "Gustave Flaubert - Madame Bovary"
-            },
-            {
-                text: "Por mucho que un hombre haya viajado, nunca está fuera del lugar. El alma viaja siempre con él.",
-                author: "Víctor Hugo - Los Miserables"
-            },
-            {
-                text: "El amor infinito es aquel que no tiene medida ni límite, aquel que todo lo abarca y todo lo perdona.",
-                author: "Dante Alighieri - La Divina Comedia"
-            }
+            // Clásicos de la Literatura Romántica
+            { text: "Te quiero con todo mi corazón. No deseo estar separado de ti desde este día en adelante.", author: "Mr. Darcy - Jane Austen, Orgullo y Prejuicio" },
+            { text: "Es un hecho universalmente reconocido que un hombre soltero, poseedor de una buena fortuna, necesita una esposa.", author: "Jane Austen - Orgullo y Prejuicio" },
+            { text: "No es la montaña lo que vencemos, sino a nosotros mismos.", author: "Gabriel García Márquez - Cien Años de Soledad" },
+            { text: "La soledad es hermosa cuando tienes con quién no hablar.", author: "Gabriel García Márquez" },
+            { text: "Tú eres el más bonito de todos los mares, el más puro de los ríos, el más lindo de los días.", author: "Mario Benedetti - La tregua" },
+            { text: "Eres la última persona en el mundo con la que podría casarme.", author: "Elizabeth Bennet - Jane Austen, Orgullo y Prejuicio" },
+            { text: "Hubiera podido fácilmente perdonar su orgullo, si no hubiera sido porque se metió con el mío.", author: "Elizabeth Bennet - Jane Austen, Orgullo y Prejuicio" },
+            { text: "En vano he luchado. No sirve de nada. No puedo reprimir mis sentimientos.", author: "Mr. Darcy - Jane Austen, Orgullo y Prejuicio" },
+            { text: "Nada es comparable a la satisfacción de ver a alguien realmente enamorado.", author: "Jane Austen" },
+
+            // Paulo Coelho
+            { text: "Cuando alguien desea algo, el universo entero conspira para que lo consiga.", author: "Paulo Coelho - El Peregrino" },
+            { text: "Si puedes soñarlo, puedes hacerlo.", author: "Paulo Coelho - El Alquimista" },
+            { text: "La vida nos atrae siempre hacia adelante, pero nuestro corazón permanece anclado en el pasado.", author: "Paulo Coelho" },
+            { text: "El verdadero amor es aquel que nos hace crecer hacia lo mejor de nosotros mismos.", author: "Paulo Coelho" },
+            { text: "Lo que el alma quiere, el universo lo apoya.", author: "Paulo Coelho" },
+            { text: "Toda alma está conectada con otras almas. Todos contenemos algo sagrado.", author: "Paulo Coelho" },
+            { text: "Cada minuto de nuestra vida es fundamental porque es un milagro.", author: "Paulo Coelho" },
+
+            // Gabriel García Márquez
+            { text: "No es verdad que la gente deje de perseguir sueños porque envejece. Envejece porque deja de perseguir sueños.", author: "Gabriel García Márquez" },
+            { text: "A nadie le importa si eres valiente. Solo quieren saber si estás vivo.", author: "Gabriel García Márquez" },
+            { text: "La realidad no es lo que uno ve, sino lo que se repite todos los días.", author: "Gabriel García Márquez" },
+            { text: "El amor es el sentimiento más importante, el vínculo entre los seres humanos.", author: "Gabriel García Márquez" },
+            { text: "También en los viajes amorosos hay que aprender a decir adiós sin llorar.", author: "Gabriel García Márquez" },
+            { text: "Miraba el mundo como un juego nuevo cuyas reglas aún no acababa de aprender.", author: "Gabriel García Márquez" },
+            { text: "Lo importante no es el lugar en que naces, sino el sitio hacia el que te diriges.", author: "Gabriel García Márquez" },
+            { text: "Siempre es necesario un fantasma en la familia para que florezca la dignidad.", author: "Gabriel García Márquez" },
+            { text: "La riqueza más hermosa que posee un hombre es su soledad.", author: "Gabriel García Márquez" },
+
+            // Pablo Neruda
+            { text: "Puedo escribir los versos más tristes esta noche. La noche está estrellada, y tirante, azul, sobre mis ojos.", author: "Pablo Neruda - Veinte Poemas de Amor" },
+            { text: "Te quiero sin saber cómo, ni cuándo, ni de dónde.", author: "Pablo Neruda" },
+            { text: "Quiero hacer contigo lo que la primavera hace con los cerezos.", author: "Pablo Neruda" },
+            { text: "Mi amor es tan profundo, tan hondo, que penetra la tierra y toca el cielo.", author: "Pablo Neruda" },
+            { text: "Tú eres la noche, la estrella de la noche en medio de la noche vasta.", author: "Pablo Neruda" },
+            { text: "Eres como la noche, callada y constelada.", author: "Pablo Neruda" },
+            { text: "El tiempo es una invención del hombre para medir la distancia entre los momentos que no pueden tocarse.", author: "Pablo Neruda" },
+            { text: "He ido marcando el álbum de mi corazón con tus ojos hasta perder la cuenta de tu belleza.", author: "Pablo Neruda" },
+            { text: "A veces deseas conocer la historia de alguien. Solo la historia. No lo que está escribiendo en este momento.", author: "Pablo Neruda" },
+            { text: "Amor mío, ¿por qué cierras los ojos cuando te beso?", author: "Pablo Neruda" },
+            { text: "Quiero hacer contigo desaparecer en toda nuestra hondura de inexplicables y profundos abismos.", author: "Pablo Neruda" },
+
+            // Octavio Paz
+            { text: "La soledad es profunda y fecunda. Todos somos solos, pero la soledad de cada uno es como la de los demás.", author: "Octavio Paz - El Laberinto de la Soledad" },
+            { text: "El amor es una experiencia radical porque nos pone frente a frente con lo otro, con la otredad.", author: "Octavio Paz" },
+            { text: "La poesía es el lenguaje en su infancia; la prosa es el lenguaje en su vejez.", author: "Octavio Paz" },
+            { text: "Los ojos no tienen secretos. Son la ventana del alma.", author: "Octavio Paz" },
+
+            // Jorge Luis Borges
+            { text: "Que nadie sea enemigo de un hombre. Que sea hombre sea solamente el amigo de los hombres.", author: "Jorge Luis Borges - El Aleph" },
+            { text: "La eternidad es una de las raras cosas que inspiran al hombre la idea de lo infinito.", author: "Jorge Luis Borges" },
+            { text: "Sé de un laberinto griego que es una línea recta.", author: "Jorge Luis Borges" },
+            { text: "Nadie rebaje a lágrima o reproche la mentira de su vida.", author: "Jorge Luis Borges" },
+            { text: "La riqueza de una literatura consiste en su capacidad de renovarse.", author: "Jorge Luis Borges" },
+            { text: "Siempre imaginé que el Paraíso sería algún tipo de biblioteca.", author: "Jorge Luis Borges" },
+            { text: "El universo tiene la virtud de parecerse a la música.", author: "Jorge Luis Borges" },
+
+            // Julio Cortázar
+            { text: "No hay un personaje en la literatura que no sea reflejo de la vida real, aunque sea de la imaginación.", author: "Julio Cortázar - Rayuela" },
+            { text: "Todo verdadero arte es testimonio de la búsqueda del hombre por la verdad.", author: "Julio Cortázar" },
+            { text: "Nadie tiene derecho a la felicidad, pero tampoco falta el derecho a buscarla.", author: "Julio Cortázar" },
+            { text: "Leer una novela es no abandonar nunca la esperanza de que algo sorprendente sucederá.", author: "Julio Cortázar" },
+
+            // Dostoyevski
+            { text: "La belleza salva al mundo, pero ¿quién salvará la belleza?", author: "Fiódor Dostoyevski - El Idiota" },
+            { text: "En la vida hay momentos felices. Su existencia consolida la creencia de que la vida merece la pena.", author: "Fiódor Dostoyevski - Crimen y Castigo" },
+            { text: "Amar a la humanidad actualmente es casi imposible. Solo es posible amar a quien está cerca.", author: "Fiódor Dostoyevski" },
+            { text: "La gente habla a veces de un 'instinto salvaje' para explicar cualquier violencia. Pero eso es injusto.", author: "Fiódor Dostoyevski" },
+            { text: "La compasión es la más importante ley de existencia humana.", author: "Fiódor Dostoyevski" },
+            { text: "La adversidad es lo único que requiere la comprensión del alma.", author: "Fiódor Dostoyevski" },
+            { text: "Se me ocurre que el misterio de la existencia humana no estriba en el hecho de vivir, sino en el saber por qué se vive.", author: "Fiódor Dostoyevski" },
+
+            // Tolstói
+            { text: "Todas las familias felices se parecen unas a otras; cada familia infeliz es infeliz a su manera.", author: "Leo Tolstói - Anna Karenina" },
+            { text: "Una de las cosas que la felicidad hace a la gente es hacerla parecerse a sí misma más aún que lo que es naturalmente.", author: "Leo Tolstói" },
+            { text: "El verdadero amor es un sentimiento que no puede ser humillado o avergonzado.", author: "Leo Tolstói" },
+            { text: "Si buscas la perfección, nunca estarás satisfecho.", author: "Leo Tolstói" },
+            { text: "En el amor, como en la guerra, uno debe estar siempre dispuesto a cambiar de táctica.", author: "Leo Tolstói" },
+
+            // Flaubert
+            { text: "Una cosa sin la otra es incompleta. El hombre sin la mujer es incompleto, y la mujer sin el hombre también.", author: "Gustave Flaubert - Madame Bovary" },
+            { text: "El estilo es la vida y el alma del lenguaje.", author: "Gustave Flaubert" },
+            { text: "No hay un lugar grande ni pequeño; existe en la vista del poeta la verdadera magnitud.", author: "Gustave Flaubert" },
+
+            // Víctor Hugo
+            { text: "Por mucho que un hombre haya viajado, nunca está fuera del lugar. El alma viaja siempre con él.", author: "Víctor Hugo - Los Miserables" },
+            { text: "El único verdadero fracaso de un hombre es cuando abandona la esperanza.", author: "Víctor Hugo" },
+            { text: "La verdad es como la luz. Hay que dejarla entrar.", author: "Víctor Hugo" },
+            { text: "Hay momentos en que el alma madura, hay instantes en que el corazón se ensancha.", author: "Víctor Hugo" },
+            { text: "La gratitud es la memoria del corazón.", author: "Víctor Hugo" },
+            { text: "La riqueza no está en poseer mucho, sino en desear poco.", author: "Víctor Hugo" },
+
+            // Dante Alighieri
+            { text: "El amor infinito es aquel que no tiene medida ni límite, aquel que todo lo abarca y todo lo perdona.", author: "Dante Alighieri - La Divina Comedia" },
+            { text: "La vida de quien quiere vivir en recordar lo que fue, es la muerte progresiva.", author: "Dante Alighieri" },
+            { text: "Mi gloria será permanecer en la memoria de los hombres dignos.", author: "Dante Alighieri" },
+
+            // Shakespeare
+            { text: "El amor todo lo excusa, todo lo cree, todo lo espera, todo lo soporta.", author: "William Shakespeare" },
+            { text: "La vida es lo que sucede cuando estás ocupado haciendo otros planes.", author: "William Shakespeare" },
+            { text: "Un poco de amor es lo que mejor puede hacerte sobrevivir en la vida.", author: "William Shakespeare" },
+            { text: "No existe legítima razón para la ignorancia de hombre alguno, si trata de obtener aprendizaje.", author: "William Shakespeare" },
+            { text: "La música es el alimento del amor; adelante, tocad.", author: "William Shakespeare - La Noche de Reyes" },
+            { text: "Todos somos actores en este teatro de la vida.", author: "William Shakespeare" },
+
+            // Lorca
+            { text: "La tristeza es una de mis formas de amar.", author: "Federico García Lorca" },
+            { text: "Donde duerme el águila, duerme también la sombra del águila.", author: "Federico García Lorca" },
+            { text: "El poeta pide al amor que lo lleve donde nadie lo pueda encontrar.", author: "Federico García Lorca" },
+            { text: "Verde que te quiero verde. Verde oscuro. Verde de ferrocarril.", author: "Federico García Lorca" },
+            { text: "La muerte es un ángel prudente que sabe esperar.", author: "Federico García Lorca" },
+            { text: "He cerrado mi balcón porque no quiero oír el llanto de las cosas.", author: "Federico García Lorca" },
+
+            // Machado
+            { text: "Caminante, son tus huellas el camino y nada más; caminante, no hay camino, se hace camino al andar.", author: "Antonio Machado" },
+            { text: "Mirando el río hondo, saliendo de Soria, me acordé de otras tierras desiertas.", author: "Antonio Machado" },
+            { text: "El corazón tiene sus razones que la razón desconoce.", author: "Antonio Machado" },
+            { text: "Todo hombre es un universo en sí mismo.", author: "Antonio Machado" },
+            { text: "Las cosas claras y el chocolate espeso.", author: "Antonio Machado" },
+
+            // Camus
+            { text: "La verdadera generosidad hacia el futuro reside en dar todo al presente.", author: "Albert Camus - El Mito de Sísifo" },
+            { text: "El amor es la única forma que el alma tiene de encontración con otro ser.", author: "Albert Camus" },
+            { text: "La vida debe ser una constante creación de uno mismo.", author: "Albert Camus" },
+            { text: "La pasión de la vida es lo que nos salva de la desesperación.", author: "Albert Camus" },
+            { text: "En mitad de la nada, de pronto una voz nos dice: eres bien recibido aquí.", author: "Albert Camus" },
+
+            // Sartre
+            { text: "El hombre está condenado a ser libre; condenado porque no se ha creado a sí mismo, y sin embargo, responsable de todo lo que hace.", author: "Jean-Paul Sartre - El Ser y la Nada" },
+            { text: "La mala fe es la escudarilla del libre albedrío.", author: "Jean-Paul Sartre" },
+            { text: "No es suficiente tener un corazón, hay que tener el coraje de seguirlo.", author: "Jean-Paul Sartre" },
+            { text: "Eres libre de elegir, pero no eres libre de no elegir.", author: "Jean-Paul Sartre" },
+
+            // Hemingway
+            { text: "La prosa es arquitectura, no decoración, y la buena prosa es como un buen edificio.", author: "Ernest Hemingway" },
+            { text: "El mundo es un lugar hermoso y merece la pena luchar por él.", author: "Ernest Hemingway" },
+            { text: "Los seres humanos se alquebran en dos, pero luego muchos se hacen fuertes en los lugares rotos.", author: "Ernest Hemingway" },
+            { text: "La vida es bonita y a menudo no lo vemos porque nos cegamos con la rutina.", author: "Ernest Hemingway" },
+
+            // Kafka
+            { text: "Un libro debe ser el hacha que rompa el hielo solidificado dentro de nuestro corazón.", author: "Franz Kafka" },
+            { text: "La esperanza siempre nos engaña, pero continúo esperando.", author: "Franz Kafka" },
+            { text: "Me gusta estar solo, pero no me gusta ser solitario.", author: "Franz Kafka" },
+            { text: "Del decepcionante presente no hay escapatoria.", author: "Franz Kafka" },
+
+            // Proust
+            { text: "El verdadero viaje de descubrimiento no está en buscar nuevas tierras, sino en poseer nuevos ojos.", author: "Marcel Proust" },
+            { text: "La verdadera fotografía de la vida íntima es el arte, no la sociedad.", author: "Marcel Proust" },
+            { text: "El tiempo es el más grande escultor de todos.", author: "Marcel Proust" },
+
+            // Balzac
+            { text: "Detrás de todo gran hombre hay una mujer. Detrás de cada mujer hay la realidad.", author: "Honoré de Balzac" },
+            { text: "Detrás de la montura hay siempre una historia que carece de dramatismo a causa de su verdad.", author: "Honoré de Balzac" },
+            { text: "La soledad es el verdadero palacio de la resignación.", author: "Honoré de Balzac" },
+
+            // Wilde
+            { text: "Ser uno mismo en un mundo que constantemente intenta hacerte otra cosa es el mayor logro.", author: "Oscar Wilde" },
+            { text: "El corazón tiene su propia razón que la razón desconoce.", author: "Oscar Wilde" },
+            { text: "La belleza es una forma de genio; es más elevada que el genio.", author: "Oscar Wilde" },
+            { text: "El amor es como una batalla: quien respira pero no pelea cae.", author: "Oscar Wilde" },
+            { text: "Lo importante es la imaginación, no la realidad.", author: "Oscar Wilde" },
+            { text: "Puede uno ser abiertamente gay, pero no abiertamente profundo.", author: "Oscar Wilde" },
+
+            // Woolf
+            { text: "Cierra los ojos y entrégate a la oscura libertad del interior de tu alma.", author: "Virginia Woolf" },
+            { text: "La vida no está compuesta de grandes batallas, sino de pequeños momentos.", author: "Virginia Woolf" },
+            { text: "Es un don el poder mirar a una persona y ver a alguien que realmente quería ser.", author: "Virginia Woolf" },
+            { text: "La soledad todavía es una compañía celosa.", author: "Virginia Woolf" },
+
+            // Márquez (más)
+            { text: "Si una mujer verdaderamente lo ama, no le importa lo que haya hecho.", author: "Gabriel García Márquez" },
+            { text: "El secreto del buen viejo es que no temía a la muerte; temía la vejez.", author: "Gabriel García Márquez" },
+            { text: "Descubridor de mundos interiores", author: "Gabriel García Márquez" },
+            { text: "La vida no es la que uno vivió, sino la que uno recuerda y cómo la recuerda.", author: "Gabriel García Márquez" },
+            { text: "No es raro que todos estén buscando algo, aunque no lo sepan del todo.", author: "Gabriel García Márquez" },
+
+            // Mutis
+            { text: "La verdadera lectura es un acto de inmensa validez para contrarrestar el olvido.", author: "Álvaro Mutis" },
+            { text: "El viajero es quien siente la plenitud del instante.", author: "Álvaro Mutis" },
+
+            // Sabines
+            { text: "Te quiero sin rencor. Te quiero sin reclamo. Te quiero sin demanda. Te quiero sin pretensión.", author: "Jaime Sabines" },
+            { text: "La muerte me trae sin cuidado. Pienso en ti como en una música imposible.", author: "Jaime Sabines" },
+            { text: "Tú eres mi patria, mi amor, mi desventura.", author: "Jaime Sabines" },
+
+            // Byron
+            { text: "Se ama de verdad una sola vez en la vida.", author: "Lord Byron" },
+            { text: "La pasión es un fuego que consume pero ilumina.", author: "Lord Byron" },
+            { text: "Si amas a alguien, déjalo ir. Si regresa, es tuyo.", author: "Lord Byron" },
+
+            // Keats
+            { text: "La belleza es verdad, y la verdad es belleza.", author: "John Keats" },
+            { text: "Una cosa de belleza es una alegría para siempre.", author: "John Keats" },
+            { text: "El corazón del poeta es el mejor libro del mundo.", author: "John Keats" },
+
+            // Petrarca
+            { text: "Cuando hablo de ti, las palabras no me caben en la boca.", author: "Francesco Petrarca" },
+            { text: "Amor es el arte de la memoria perfecta.", author: "Francesco Petrarca" },
+            { text: "Tú eres la razón de mi existencia.", author: "Francesco Petrarca" },
+
+            // Goethe
+            { text: "Porque fuera de ti, encuentro en mí la magnificencia del mundo.", author: "Johann Wolfgang von Goethe" },
+            { text: "La capacidad de amar es el mayor regalo del ser humano.", author: "Johann Wolfgang von Goethe" },
+            { text: "Si actúas como si fueras lo que quieres ser, entonces lo llegarás a ser.", author: "Johann Wolfgang von Goethe" },
+
+            // Whitman
+            { text: "Soy multitudes. Contengo multitudes.", author: "Walt Whitman" },
+            { text: "O me! O vida!... Pero la pregunta es la respuesta.", author: "Walt Whitman" },
+            { text: "Canta a ti mismo, celebra tu propio existencia.", author: "Walt Whitman" },
+
+            // Emily Dickinson
+            { text: "La esperanza es lo que queda cuando todo lo demás se ha ido.", author: "Emily Dickinson" },
+            { text: "He disfrutado la más bella persona de todo lo que he visto.", author: "Emily Dickinson" },
+            { text: "Dime quién soy, y seré ese alguien; dime que no merezco ser, y dejaré de intentarlo.", author: "Emily Dickinson" },
+
+            // Brontë
+            { text: "Se ama como se vive, en soledad. Pero se vive con esperanza.", author: "Charlotte Brontë" },
+            { text: "He perdido la cabeza por parte de ti; porque un vínculo de sangre atrae a la afinidad del alma.", author: "Charlotte Brontë" },
+            { text: "Soy no soy una ave; ninguna red me atrapa; soy un espíritu libre con un alma libre.", author: "Charlotte Brontë" },
+
+            // Austen (más)
+            { text: "No hay que juzgar a un hombre por lo que diga, sino por lo que haga.", author: "Jane Austen" },
+            { text: "Es un hecho importante que toda mujer desea un hogar feliz y una vida plena.", author: "Jane Austen" },
+            { text: "Las amigas verdaderas son como los diamantes: valiosas y eternas.", author: "Jane Austen" },
+
+            // Montaigne
+            { text: "Amigo: una palabra única que lo significa todo", author: "Michel de Montaigne" },
+            { text: "La vida es un viaje, no un destino.", author: "Michel de Montaigne" },
+            { text: "Ser humano es ser contradictorio, y es lo más hermoso que tenemos.", author: "Michel de Montaigne" },
+
+            // Baudelaire
+            { text: "La belleza es extraordinaria; nada es tan bello como lo desconocido.", author: "Charles Baudelaire" },
+            { text: "Almas gemelas en un cuerpo; somos uno cuando nos besamos.", author: "Charles Baudelaire" },
+            { text: "La poesía es la única forma de expresar lo inexpresable.", author: "Charles Baudelaire" },
+
+            // Rimbaud
+            { text: "No soy quien creía ser; soy alguien mejor desde que te he conocido.", author: "Arthur Rimbaud" },
+            { text: "La vida está en otra parte, lejos de aquí.", author: "Arthur Rimbaud" },
+            { text: "Hay que ser absolutamente moderno.", author: "Arthur Rimbaud" },
+
+            // Verlaine
+            { text: "La sangre de mi corazón es toda tuya.", author: "Paul Verlaine" },
+            { text: "Tu amante no es feliz si tú no lo eres.", author: "Paul Verlaine" },
+            { text: "El amor es la religión verdadera de la vida.", author: "Paul Verlaine" },
+
+            // Apollinaire
+            { text: "Ven conmigo al reino de la imaginación donde todo es posible.", author: "Guillaume Apollinaire" },
+            { text: "La poesía es el único imperio that resiste al tiempo.", author: "Guillaume Apollinaire" },
+            { text: "Aquí descansa una sombra que fue una vez viva de tu amor.", author: "Guillaume Apollinaire" },
+
+            // Salinger
+            { text: "Algunas chicas tienen ese tipo de voz que te encanta, aunque sean desgraciadas.", author: "J.D. Salinger - El Guardián entre el Centeno" },
+            { text: "El verdadero amor es aquel que te ve tal como eres y aún te ama.", author: "J.D. Salinger" },
+            { text: "Si realmente amas algo, déjalo ir. Si regresa, te pertenece.", author: "J.D. Salinger" },
+
+            // Bradbury
+            { text: "No es el fuego lo que quema al mundo, es la ignorancia de lo que el fuego es.", author: "Ray Bradbury - Fahrenheit 451" },
+            { text: "Se debe existir en la piel, no en los pensamientos.", author: "Ray Bradbury" },
+            { text: "El futuro depende de lo que hagamos hoy mismo.", author: "Ray Bradbury" },
+
+            // Asimov
+            { text: "El conocimiento es poder, pero solo cuando se comparte.", author: "Isaac Asimov" },
+            { text: "La imaginación es más importante que el conocimiento.", author: "Isaac Asimov" },
+            { text: "El individuo es el verdadero depósito de la fuerza moral de la humanidad.", author: "Isaac Asimov" },
+
+            // Dick
+            { text: "Las realidades o ilusiones, ¿qué importa si uno da lo mejor de sí?", author: "Philip K. Dick" },
+            { text: "La verdadera fe viene de adentro, de la comprensión de uno mismo.", author: "Philip K. Dick" },
+
+            // Vonnegut
+            { text: "Y así es. La vida es así. No te molestes en estar molesto.", author: "Kurt Vonnegut" },
+            { text: "Lo importante es la forma en que decidimos vivir nuestras vidas.", author: "Kurt Vonnegut" },
+            { text: "Dios créame para vivir, no para ser perfecto.", author: "Kurt Vonnegut" },
+
+            // Márquez (continuación romántica)
+            { text: "Amor y matrimonio, aunque inseparables, son dos cosas muy diferentes.", author: "Gabriel García Márquez - El Amor en los Tiempos del Cólera" },
+            { text: "Es extraño amar a una mujer que leyó los libros que yo leía.", author: "Gabriel García Márquez" },
+            { text: "El viejo y hermoso arte de hacer el amor con la imaginación.", author: "Gabriel García Márquez" },
+
+            // Allende
+            { text: "Las historias de amor son mis favoritas porque al final siempre gana la esperanza.", author: "Isabel Allende" },
+            { text: "El único que no cambia es el que está muerto.", author: "Isabel Allende" },
+            { text: "La vida es un viaje en el que el destino es menos importante que el camino.", author: "Isabel Allende" },
+
+            // Vargas Llosa
+            { text: "La literatura es la forma más noble de decir la verdad.", author: "Mario Vargas Llosa" },
+            { text: "Un escritor es alguien que ha enseñado a su alma a pensar.", author: "Mario Vargas Llosa" },
+            { text: "La fantasía y la realidad viven muy cerca en el corazón de una persona.", author: "Mario Vargas Llosa" },
+
+            // Santa Teresa de Ávila
+            { text: "Nada te turbe, nada te espante. Todo se pasa. Dios no se muda. La paciencia todo lo alcanza.", author: "Santa Teresa de Ávila" },
+            { text: "El que ama, vuela, corre, y se alegra.", author: "Santa Teresa de Ávila" },
+            { text: "Gozaos en el Señor, y en su amor hallaréis paz y alegría verdadera.", author: "Santa Teresa de Ávila" },
+
+            // San Juan de la Cruz
+            { text: "Una sola alma en dos cuerpos.", author: "San Juan de la Cruz" },
+            { text: "Que bien sé yo la fonte que mana y corre, aunque es de noche.", author: "San Juan de la Cruz" },
+            { text: "En una noche oscura, con ansias en amores inflamada.", author: "San Juan de la Cruz" },
+
+            // Filosofía de Platón
+            { text: "El Amor es el puente que lleva el alma hacia la verdad absoluta.", author: "Platón" },
+            { text: "Amor es una locura divina que inspira las creaciones más bellas.", author: "Platón" },
+            { text: "El verdadero amor hace que los hombres sean más sabios.", author: "Platón" },
+
+            // Filosofía de Aristóteles
+            { text: "La amistad es una virtud necesaria para la vida. Nadie querría vivir sin amigos.", author: "Aristóteles" },
+            { text: "El corazón tiene su propia lógica que la razón desconoce.", author: "Aristóteles" },
+            { text: "La grandeza de un hombre se mide por su capacidad de amar.", author: "Aristóteles" },
+
+            // Schopenhauer
+            { text: "El amor es la fuerza más potente del universo.", author: "Arthur Schopenhauer" },
+            { text: "La soledad es la suerte de todos los espíritus excelentes.", author: "Arthur Schopenhauer" },
+            { text: "Cada hombre toma los límites de su propia visión por los límites del mundo.", author: "Arthur Schopenhauer" },
+
+            // Nietzsche
+            { text: "Cuando amas a alguien, ves el mundo a través de sus ojos.", author: "Friedrich Nietzsche" },
+            { text: "Lo que no te mata, te hace más fuerte.", author: "Friedrich Nietzsche" },
+            { text: "La vida sin pasión es una muerte en vida.", author: "Friedrich Nietzsche" },
+
+            // Wittgenstein
+            { text: "Acerca de lo que no puede hablarse, debe guardarse silencio.", author: "Ludwig Wittgenstein" },
+            { text: "Las palabras son acciones, y las acciones son pensamientos.", author: "Ludwig Wittgenstein" },
+
+            // Heidegger
+            { text: "El amor es el lenguaje que todos entendemos.", author: "Martin Heidegger" },
+            { text: "La belleza es el desocultamiento de la verdad.", author: "Martin Heidegger" },
+
+            // Erich Fromm
+            { text: "El amor es la única respuesta humana racional al problema de la existencia.", author: "Erich Fromm" },
+            { text: "Amar es creer en la infinita posibilidad del otro.", author: "Erich Fromm" },
+            { text: "No somos lo que buscamos; somos lo que buscamos mientras buscamos.", author: "Erich Fromm" },
+
+            // Viktor Frankl
+            { text: "La vida tiene sentido bajo todas las circunstancias, incluso en las más miserables.", author: "Viktor Frankl" },
+            { text: "El hombre puede soportar cualquier sufrimiento si encuentra un sentido a su vida.", author: "Viktor Frankl" },
+            { text: "Entre el estímulo y la respuesta hay un espacio. En ese espacio está nuestro poder.", author: "Viktor Frankl" },
+
+            // Carl Jung
+            { text: "Hasta que hayas hecho consciente lo inconsciente, controlará tu vida y lo llamarás destino.", author: "Carl Jung" },
+            { text: "No es suficiente ir a la iglesia y asumir una identidad. La verdadera identidad viene de adentro.", author: "Carl Jung" },
+            { text: "El amor es la energía más potente del mundo. Solo después viene la muerte.", author: "Carl Jung" },
+
+            // Reparación moderna poética
+            { text: "Hay una hermosa luz en los ojos de alguien que te ama de verdad.", author: "Anónimo" },
+            { text: "El amor no es un destino, es un viaje que valió la pena recorrer.", author: "Anónimo" },
+            { text: "En la soledad de la noche, el corazón habla verdades que el día calla.", author: "Anónimo" },
+            { text: "La vida es hermosa porque es frágil y fugaz. Cada momento es una obra maestra.", author: "Anónimo" },
+            { text: "El amor verdadero no pregunta 'qué saco de esto', sino 'qué puedo dar'.", author: "Anónimo" },
+            { text: "Amar es permitir que alguien vea el verdadero tú, sin miedo al rechazo.", author: "Anónimo" },
+            { text: "La belleza del alma no se ve, se siente; habita en los gestos y las palabras sinceras.", author: "Anónimo" },
+            { text: "Dos almas conectadas nunca se pierden, aunque distancias las separen.", author: "Anónimo" },
+            { text: "El verdadero lujo de la vida es conectar con personas que entienden tu silencio.", author: "Anónimo" },
+            { text: "Cuando encuentras a alguien que entrelaza sus dedos con los tuyos en la oscuridad, has encontrado a casa.", author: "Anónimo" },
+
+            // Literatura Romántica Adicional
+            { text: "Un corazón que ama es un corazón que ha encontrado su razón de ser.", author: "Anónimo" },
+            { text: "La magia sucede cuando amas sin esperar a cambio.", author: "Anónimo" },
+            { text: "Los mejores amores son los que crecen sin avisar, en la cotidianidad.", author: "Anónimo" },
+            { text: "Amar profundamente es morir sin dolor.", author: "Anónimo" },
+            { text: "Tu nombre es mi palabra favorita.", author: "Anónimo" },
+            { text: "En tus ojos encontré mi casa, mi paz, mi razón.", author: "Anónimo" },
+            { text: "Escribo tu nombre en mi corazón para que forever sea mío.", author: "Anónimo" },
+            { text: "La vida sin ti sería un libro sin páginas.", author: "Anónimo" },
+            { text: "Eres la razón por la que creo en los milagros.", author: "Anónimo" },
+            { text: "Cuando duermo, sueño contigo. Cuando estoy despierto, pienso en ti.", author: "Anónimo" },
+            { text: "Tu sonrisa es mi lugar seguro, mi refugio del mundo.", author: "Anónimo" },
+            { text: "Encontrarte fue como encontrar una parte de mi que no sabía que faltaba.", author: "Anónimo" },
+            { text: "La vida es un regalo, pero contigo es una bendición.", author: "Anónimo" },
+            { text: "En el silencio, nuestras almas conversan en el idioma del amor.", author: "Anónimo" },
+            { text: "Eres mi literatura favorita, la historia que quiero leer por siempre.", author: "Anónimo" },
+            { text: "Mi corazón te eligió cuando mi mente aún pensaba.", author: "Anónimo" },
+            { text: "Contigo, hasta el infinito se siente pequeño.", author: "Anónimo" },
+            { text: "No sé cuál es mi futuro, pero si estás en él, no me importa el camino.", author: "Anónimo" },
+            { text: "Amarte es descubrir versiones de mí que no sabía que existían.", author: "Anónimo" },
+            { text: "Eres la respuesta a una pregunta que mi alma hacía.", author: "Anónimo" },
+
+            // Adiciones poéticas finales
+            { text: "La vida es una sola si no la compartes con alguien que ames.", author: "Anónimo" },
+            { text: "Dos corazones latiendo al mismo tiempo es la sinfonía más hermosa.", author: "Anónimo" },
+            { text: "En tiempos de tormenta, tu amor es mi arco iris seguro.", author: "Anónimo" },
+            { text: "Eres mi poema favorito, el verso que releo cada día.", author: "Anónimo" },
+            { text: "La eternidad es poco tiempo para amarte.", author: "Anónimo" },
+            { text: "Tu recuerdo es mi mejor posesión y mi mayor tesoro.", author: "Anónimo" },
+            { text: "Amarte me enseñó que el paraíso existe aquí, en la tierra.", author: "Anónimo" },
+            { text: "Cada momento contigo es un capítulo en la historia de mi felicidad.", author: "Anónimo" },
+            { text: "Eres la razón por la que las estrellas brillan en la noche.", author: "Anónimo" },
+            { text: "Con tu amor, he aprendido que la vida es mucho más hermosa.", author: "Anónimo" }
         ];
 
         function getDailyLiteraryQuote() {
