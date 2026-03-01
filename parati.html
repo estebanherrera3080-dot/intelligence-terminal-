@@ -1176,10 +1176,8 @@
 </head>
 <body>
     <!-- AUDIO DE FONDO ROMÁNTICO -->
-    <audio id="background-music" loop preload="metadata">
+    <audio id="background-music" loop preload="none">
         <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-        <source src="https://archive.org/download/RussianPianoSchool/Debussy%20-%20Clair%20de%20Lune%20.mp3" type="audio/mpeg">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
     </audio>
 
     <!-- BOTÓN DE CONTROL DE MÚSICA -->
@@ -2030,36 +2028,35 @@
         const musicControlBtn = document.getElementById('music-control-btn');
         let isMusicPlaying = false;
 
-        // Intentar reproducir música al cargar
+        // Reproducir música de forma segura
         function startBackgroundMusic() {
-            if (backgroundMusic && !isMusicPlaying) {
-                backgroundMusic.volume = 0.15; // Volumen muy bajo (15%) para ser discreto y relajante
-                const playPromise = backgroundMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isMusicPlaying = true;
-                        if (musicControlBtn) {
-                            musicControlBtn.classList.add('playing');
-                        }
-                        console.log('✓ Música de fondo iniciada correctamente');
-                    }).catch(error => {
-                        console.log('✗ Error al reproducir: ' + error);
-                        isMusicPlaying = false;
-                    });
-                }
+            if (!backgroundMusic || isMusicPlaying) return;
+            
+            backgroundMusic.volume = 0.15; // Volumen discreto (15%)
+            backgroundMusic.currentTime = 0; // Reiniciar desde el principio para evitar entrecruzamientos
+            
+            const playPromise = backgroundMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isMusicPlaying = true;
+                    if (musicControlBtn) {
+                        musicControlBtn.classList.add('playing');
+                    }
+                }).catch(() => {
+                    isMusicPlaying = false;
+                });
             }
         }
 
         // Pausar música
         function stopBackgroundMusic() {
-            if (backgroundMusic && isMusicPlaying) {
-                backgroundMusic.pause();
-                isMusicPlaying = false;
-                if (musicControlBtn) {
-                    musicControlBtn.classList.remove('playing');
-                }
-                console.log('Música pausada');
+            if (!backgroundMusic) return;
+            
+            backgroundMusic.pause();
+            isMusicPlaying = false;
+            if (musicControlBtn) {
+                musicControlBtn.classList.remove('playing');
             }
         }
 
@@ -2075,12 +2072,10 @@
             });
         }
 
-        // Pausar música cuando el usuario sale de la página
+        // Pausar música cuando cambio de pestaña
         document.addEventListener('visibilitychange', function() {
-            if (document.hidden && backgroundMusic && isMusicPlaying) {
-                stopBackgroundMusic();
-            } else if (!document.hidden && backgroundMusic && !isMusicPlaying) {
-                startBackgroundMusic();
+            if (document.hidden && isMusicPlaying) {
+                backgroundMusic.pause();
             }
         });
     </script>
