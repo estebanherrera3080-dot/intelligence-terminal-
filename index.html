@@ -40,6 +40,18 @@
             font-weight: 600;
         }
         
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         /* ========== PANTALLA DE ACCESO ========== */
         #access-screen {
             position: fixed;
@@ -112,11 +124,34 @@
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .access-box button:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 30px var(--rosa-pastel);
+        }
+        
+        .access-box button:active {
+            transform: scale(0.98);
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
         
         .error-message {
@@ -152,11 +187,18 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             transition: all 0.3s ease;
+            animation: float-button infinite 3s ease-in-out;
         }
         
         .music-control:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
             background: var(--azul-pastel);
+            box-shadow: 0 8px 30px var(--rosa-pastel);
+        }
+        
+        @keyframes float-button {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         /* ========== SECCIÓN HERO ========== */
@@ -169,6 +211,30 @@
             padding: 50px 20px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--morado-principal) 0%, var(--morado-oscuro) 100%);
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: move-bg 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes move-bg {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         
         .hero-content h1 {
@@ -176,6 +242,23 @@
             color: var(--rosa-pastel);
             margin-bottom: 30px;
             animation: fadeInDown 1.5s ease;
+            min-height: 5rem;
+        }
+        
+        .typing-effect {
+            display: inline-block;
+            border-right: 3px solid var(--rosa-pastel);
+            animation: typing 3s steps(20, end) 1, blink 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink {
+            from { border-color: var(--rosa-pastel); }
+            to { border-color: transparent; }
         }
         
         .hero-content p {
@@ -201,11 +284,32 @@
             margin: 30px auto;
             max-width: 700px;
             border-radius: 10px;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-pastel));
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.4s ease;
         }
         
         .quote-card:hover {
-            transform: translateX(10px);
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.3);
+        }
+        
+        .quote-card:hover::before {
+            opacity: 0.1;
         }
         
         .quote-card p {
@@ -213,6 +317,20 @@
             font-size: 1.2rem;
             color: var(--azul-pastel);
             line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            display: inline-block;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+        
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
         
         /* ========== CARTA DE AMOR ========== */
@@ -229,6 +347,13 @@
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             position: relative;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .letter-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
         }
         
         .letter-container::before {
@@ -238,18 +363,31 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 3rem;
+            animation: bounce-icon 2s infinite;
+        }
+        
+        @keyframes bounce-icon {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
         }
         
         .letter-container h2 {
             color: var(--morado-principal);
             margin-bottom: 30px;
             font-size: 2.5rem;
+            text-shadow: 0 2px 10px rgba(139, 71, 137, 0.2);
         }
         
         .letter-container p {
             line-height: 2;
             margin-bottom: 20px;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .letter-container p:hover {
+            color: var(--rosa-pastel);
+            transform: translateX(5px);
         }
         
         .signature {
@@ -257,6 +395,17 @@
             font-style: italic;
             margin-top: 40px;
             color: var(--morado-principal);
+            position: relative;
+        }
+        
+        .signature::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to left, var(--rosa-pastel), transparent);
         }
         
         /* ========== FRASE DEL DÍA ========== */
@@ -274,17 +423,51 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .daily-quote-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: 1;
+        }
+        
+        .daily-quote-box:hover::before {
+            left: 100%;
+        }
+        
+        .daily-quote-box:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
         
         .daily-quote-box h2 {
             font-size: 2.5rem;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-text {
+            0%, 100% { text-shadow: 0 0 0 rgba(67, 57, 102, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(67, 57, 102, 0.3); }
         }
         
         .daily-quote-box p {
             font-size: 1.3rem;
             line-height: 1.8;
             font-weight: 300;
+            position: relative;
+            z-index: 2;
         }
         
         .countdown-timer {
@@ -295,6 +478,8 @@
             font-size: 1rem;
             color: var(--morado-oscuro);
             font-weight: 400;
+            position: relative;
+            z-index: 2;
         }
         
         .timer-display {
@@ -303,6 +488,12 @@
             font-weight: bold;
             margin-top: 10px;
             letter-spacing: 2px;
+            animation: pulse-timer 1s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-timer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         /* ========== ANIMACIONES ========== */
@@ -345,6 +536,191 @@
             animation: float 6s infinite ease-in-out;
             pointer-events: none;
             color: var(--rosa-pastel);
+            filter: drop-shadow(0 0 10px var(--rosa-pastel));
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-50px) rotate(10deg); opacity: 0.6; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+        }
+        
+        /* ========== GALERÍA INTERACTIVA ========== */
+        .gallery-section {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .gallery-title {
+            font-size: 3rem;
+            color: var(--rosa-pastel);
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1.5s ease;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.08) translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.4);
+        }
+        
+        .gallery-item-content {
+            text-align: center;
+            color: var(--azul-pastel);
+            font-size: 1.2rem;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .gallery-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* ========== REACCIONES ========== */
+        .reactions-section {
+            padding: 50px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin: 50px auto;
+            max-width: 700px;
+        }
+        
+        .reactions-title {
+            font-size: 1.8rem;
+            color: var(--azul-pastel);
+            margin-bottom: 30px;
+        }
+        
+        .reactions-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .reaction-btn {
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-pastel));
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+        }
+        
+        .reaction-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .reaction-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--morado-principal);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: pop-in 0.3s ease;
+        }
+        
+        @keyframes pop-in {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ========== BOTÓN ESPECIAL ========== */
+        .special-btn {
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-pastel));
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: var(--morado-oscuro);
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin: 20px;
+        }
+        
+        .special-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .special-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .special-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+        }
+        
+        .special-btn span {
+            position: relative;
+            z-index: 1;
         }
         
         /* ========== RESPONSIVE ========== */
@@ -501,6 +877,68 @@
         <div class="floating-heart" style="top: 80%; left: 15%; animation-delay: 1s;">💜</div>
         <div class="floating-heart" style="top: 20%; left: 90%; animation-delay: 3s;">💝</div>
         
+        <!-- ========== SECCIÓN DE GALERÍA ========== -->
+        <section class="gallery-section">
+            <h2 class="gallery-title">✨ Momentos Especiales ✨</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">🌹</span>
+                        <p>Tu Belleza</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">✨</span>
+                        <p>Tu Luz</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">💎</span>
+                        <p>Tu Valor</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">🌟</span>
+                        <p>Tu Esencia</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">🎭</span>
+                        <p>Tu Gracia</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <div class="gallery-item-content">
+                        <span class="gallery-icon">🎵</span>
+                        <p>Tu Melodía</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ========== SECCIÓN DE REACCIONES ========== -->
+        <section class="reactions-section reveal">
+            <h3 class="reactions-title">¿Cómo te hace sentir esto?</h3>
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="addReaction(this, '❤️')">❤️<span class="reaction-count" style="display:none;">0</span></button>
+                <button class="reaction-btn" onclick="addReaction(this, '😍')">😍<span class="reaction-count" style="display:none;">0</span></button>
+                <button class="reaction-btn" onclick="addReaction(this, '🤩')">🤩<span class="reaction-count" style="display:none;">0</span></button>
+                <button class="reaction-btn" onclick="addReaction(this, '😭')">😭<span class="reaction-count" style="display:none;">0</span></button>
+                <button class="reaction-btn" onclick="addReaction(this, '🥰')">🥰<span class="reaction-count" style="display:none;">0</span></button>
+            </div>
+        </section>
+        
+        <!-- Corazones flotantes decorativos -->
+        <div class="floating-heart" style="top: 10%; left: 10%; animation-delay: 0s;">💕</div>
+        <div class="floating-heart" style="top: 70%; left: 85%; animation-delay: 2s;">💖</div>
+        <div class="floating-heart" style="top: 40%; left: 5%; animation-delay: 4s;">💗</div>
+        <div class="floating-heart" style="top: 80%; left: 15%; animation-delay: 1s;">💜</div>
+        <div class="floating-heart" style="top: 20%; left: 90%; animation-delay: 3s;">💝</div>
+        
     </div>
     
     <!-- Bootstrap JS -->
@@ -508,34 +946,25 @@
     
     <script>
         // ========== SISTEMA DE ACCESO CON CONTRASEÑA ==========
-        // La contraseña correcta es: saray
-        
         function checkPassword() {
             const passwordInput = document.getElementById('password-input');
             const errorMessage = document.getElementById('error-message');
             const accessScreen = document.getElementById('access-screen');
             const mainContent = document.getElementById('main-content');
-            const correctPassword = 'saray'; // Contraseña correcta
+            const correctPassword = 'saray';
             
-            // Verificar si la contraseña ingresada es correcta
             if (passwordInput.value.toLowerCase() === correctPassword) {
-                // Contraseña correcta: ocultar pantalla de acceso
                 accessScreen.classList.add('hidden');
-                
-                // Mostrar contenido principal con animación suave
                 setTimeout(() => {
                     mainContent.classList.add('visible');
-                    // Intentar reproducir música (algunos navegadores requieren interacción del usuario)
                     playMusic();
+                    activateScrollReveal();
                 }, 500);
-                
             } else {
-                // Contraseña incorrecta: mostrar mensaje de error elegante
                 errorMessage.style.display = 'block';
                 passwordInput.value = '';
                 passwordInput.focus();
                 
-                // Añadir efecto de vibración sutil
                 passwordInput.style.animation = 'shake 0.5s';
                 setTimeout(() => {
                     passwordInput.style.animation = '';
@@ -543,26 +972,39 @@
             }
         }
         
-        // Permitir presionar Enter para enviar la contraseña
+        // Efecto ripple en el botón
+        document.querySelector('.access-box button')?.addEventListener('click', function(e) {
+            const btn = this;
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            btn.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+        
         document.getElementById('password-input').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 checkPassword();
             }
         });
         
-        // ========== CONTROL DE MÚSICA DE FONDO ==========
+        // ========== CONTROL DE MÚSICA ==========
         const music = document.getElementById('background-music');
         let isPlaying = false;
         
         function playMusic() {
-            music.volume = 0.3; // Volumen bajo (30%)
+            music.volume = 0.3;
             music.play().then(() => {
                 isPlaying = true;
                 document.getElementById('music-toggle').textContent = '🔊';
             }).catch(error => {
-                // Si el navegador bloquea la reproducción automática, 
-                // el usuario puede activarla manualmente
-                console.log('Reproducción automática bloqueada. Haz clic en el botón de música.');
+                console.log('Reproducción automática bloqueada.');
                 isPlaying = false;
             });
         }
@@ -577,10 +1019,37 @@
             }
         }
         
-        // ========== FRASE DEL DÍA PARA SARAY ==========
-        // Esta función muestra una frase diferente cada 24 horas
-        // usando localStorage para recordar qué frase se mostró y cuándo
+        // ========== EFECTO PARALLAX ==========
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const floatingHearts = document.querySelectorAll('.floating-heart');
+            
+            floatingHearts.forEach((heart, index) => {
+                const speed = (index + 1) * 0.05;
+                heart.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
         
+        // ========== ANIMACIONES EN SCROLL (SCROLL REVEAL) ==========
+        function activateScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            revealElements.forEach(element => observer.observe(element));
+        }
+        
+        // ========== FRASE DEL DÍA ==========
         const dailyQuotes = [
             "Saray, tus sueños no son solo posibles, son inevitables cuando pones tu corazón en ellos. Eres más capaz de lo que imaginas.",
             "Que este día te recuerde lo hermosa que eres, no solo por fuera, sino por la luz que irradias desde tu interior.",
@@ -595,62 +1064,110 @@
         ];
         
         function getDailyQuote() {
-            const today = new Date().toDateString(); // Fecha de hoy como string
+            const today = new Date().toDateString();
             const storedDate = localStorage.getItem('dailyQuoteDate');
             const storedIndex = localStorage.getItem('dailyQuoteIndex');
             
-            // Si es un nuevo día o no hay datos guardados, elegir nueva frase
             if (storedDate !== today || storedIndex === null) {
                 const randomIndex = Math.floor(Math.random() * dailyQuotes.length);
                 localStorage.setItem('dailyQuoteDate', today);
                 localStorage.setItem('dailyQuoteIndex', randomIndex);
                 return dailyQuotes[randomIndex];
             } else {
-                // Si es el mismo día, mostrar la misma frase
                 return dailyQuotes[parseInt(storedIndex)];
             }
         }
         
-        // ========== CONTADOR REGRESIVO PARA EL PRÓXIMO MENSAJE ==========
-        // Actualiza cada segundo mostrando cuánto tiempo falta para el próximo mensaje
-        
+        // ========== CONTADOR REGRESIVO ==========
         function updateCountdown() {
             const now = new Date();
-            
-            // Calcular la medianoche de mañana (00:00:00)
             const tomorrow = new Date(now);
             tomorrow.setHours(24, 0, 0, 0);
             
-            // Diferencia en milisegundos
             const difference = tomorrow - now;
             
-            // Convertir a horas, minutos y segundos
             const hours = Math.floor(difference / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
             
-            // Formatear con dos dígitos
             const formattedHours = String(hours).padStart(2, '0');
             const formattedMinutes = String(minutes).padStart(2, '0');
             const formattedSeconds = String(seconds).padStart(2, '0');
             
-            // Mostrar en el elemento
             const timerElement = document.getElementById('countdown-timer');
             if (timerElement) {
                 timerElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
         }
         
-        // Mostrar la frase del día al cargar la página
         document.getElementById('daily-quote').textContent = getDailyQuote();
-        
-        // Iniciar el contador regresivo inmediatamente
         updateCountdown();
-        
-        // Actualizar el contador cada segundo
         setInterval(updateCountdown, 1000);
         
-        // ========== ANIMACIÓN SHAKE PARA ERROR DE CONTRASEÑA ==========
+        // ========== REACCIONES ==========
+        function addReaction(button, emoji) {
+            const countSpan = button.querySelector('.reaction-count');
+            let count = parseInt(countSpan.textContent) || 0;
+            count++;
+            
+            countSpan.textContent = count;
+            countSpan.style.display = 'flex';
+            
+            // Crear partícula flotante
+            const particle = document.createElement('div');
+            particle.textContent = emoji;
+            particle.style.position = 'fixed';
+            particle.style.pointerEvents = 'none';
+            particle.style.fontSize = '1.5rem';
+            particle.style.zIndex = '9999';
+            
+            const rect = button.getBoundingClientRect();
+            particle.style.left = rect.left + 'px';
+            particle.style.top = rect.top + 'px';
+            
+            document.body.appendChild(particle);
+            
+            // Animación de partícula flotante
+            const startY = rect.top;
+            const startX = rect.left;
+            let currentY = startY;
+            let currentX = startX;
+            
+            const animate = () => {
+                currentY -= 5;
+                currentX += (Math.random() - 0.5) * 4;
+                particle.style.transform = `translate(${currentX - startX}px, ${currentY - startY}px)`;
+                
+                if (currentY > startY - 150) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            };
+            
+            animate();
+            
+            // Guardar en localStorage
+            const reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
+            reactions[emoji] = count;
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+        }
+        
+        // Cargar reacciones guardadas
+        window.addEventListener('load', () => {
+            const reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
+            document.querySelectorAll('.reaction-btn').forEach(btn => {
+                const emoji = btn.textContent.trim().split('\n')[0];
+                const count = reactions[emoji];
+                if (count) {
+                    const countSpan = btn.querySelector('.reaction-count');
+                    countSpan.textContent = count;
+                    countSpan.style.display = 'flex';
+                }
+            });
+        });
+        
+        // ========== ANIMACIÓN SHAKE ==========
         const style = document.createElement('style');
         style.textContent = `
             @keyframes shake {
