@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.8);
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white;
+}
+
+.btn-secondary {
+  @apply bg-slate-700 hover:bg-slate-600 text-white;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-700 text-white;
+}
+
+/* Input styles */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
+  @apply bg-slate-800 border border-slate-700 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+}
+
+/* Table styles */
+table {
+  @apply w-full border-collapse;
+}
+
+th {
+  @apply bg-slate-800 text-slate-300 font-semibold text-left px-4 py-3 border-b border-slate-700;
+}
+
+td {
+  @apply px-4 py-3 border-b border-slate-800;
+}
+
+tr:hover {
+  @apply bg-slate-800 bg-opacity-50;
+}
+
+/* Card styles */
+.card {
+  @apply bg-slate-900 border border-slate-800 rounded-lg p-6;
+}
+
+.card-header {
+  @apply border-b border-slate-800 pb-4 mb-4;
+}
+
+.card-title {
+  @apply text-xl font-bold text-white;
+}
+
+.card-subtitle {
+  @apply text-sm text-slate-400 mt-1;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-block px-2 py-1 rounded text-xs font-semibold;
+}
+
+.badge-success {
+  @apply bg-green-900 bg-opacity-50 text-green-400;
+}
+
+.badge-warning {
+  @apply bg-yellow-900 bg-opacity-50 text-yellow-400;
+}
+
+.badge-error {
+  @apply bg-red-900 bg-opacity-50 text-red-400;
+}
+
+.badge-info {
+  @apply bg-blue-900 bg-opacity-50 text-blue-400;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Color utilities */
+.text-success {
+  @apply text-green-400;
+}
+
+.text-warning {
+  @apply text-yellow-400;
+}
+
+.text-error {
+  @apply text-red-400;
+}
+
+.text-info {
+  @apply text-blue-400;
+}
+
+.bg-success {
+  @apply bg-green-900 bg-opacity-20;
+}
+
+.bg-warning {
+  @apply bg-yellow-900 bg-opacity-20;
+}
+
+.bg-error {
+  @apply bg-red-900 bg-opacity-20;
+}
+
+.bg-info {
+  @apply bg-blue-900 bg-opacity-20;
+}

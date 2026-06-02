@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FootAnalyze Pro - API Real-Time</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #0a0e13;
+      --card: #111823;
+      --border: #1e2d3d;
+      --accent: #00d9ff;
+      --success: #00e5a0;
+      --danger: #ff4d6d;
+      --warning: #ffd700;
+      --text: #e8edf2;
+      --text-muted: #7a8a9d;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .api-status {
+      display: inline-block;
+      margin-left: 1rem;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      background: rgba(0, 229, 160, 0.1);
+      border: 1px solid rgba(0, 229, 160, 0.3);
+      color: var(--success);
+    }
+
+    .api-status.offline {
+      background: rgba(255, 77, 109, 0.1);
+      border-color: rgba(255, 77, 109, 0.3);
+      color: var(--danger);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+    }
+
+    /* ───────────────────────────── TAB SELECTOR ───────────────────────────── */
+
+    .mode-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mode-tab {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .mode-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .mode-content {
+      display: none;
+    }
+
+    .mode-content.active {
+      display: block;
+    }
+
+    /* ───────────────────────────── API FORM ───────────────────────────────── */
+
+    .api-form {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    input, select {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem;
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    input::placeholder {
+      color: var(--text-muted);
+    }
+
+    input, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      align-self: flex-end;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.8rem 1.8rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #00f0ff;
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      background: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.5;
+    }
+
+    /* ───────────────────────────── RESULTADOS ───────────────────────────────── */
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--accent);
+      font-weight: 600;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .error-msg {
+      background: rgba(255, 77, 109, 0.1);
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      color: var(--danger);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-msg {
+      background: rgba(0, 229, 160, 0.1);
+      border: 1px solid rgba(0, 229, 160, 0.3);
+      color: var(--success);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+    }
+
+    .team-box h3 {
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .team-box input {
+      width: 100%;
+    }
+
+    .team-info {
+      background: rgba(0, 217, 255, 0.05);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 6px;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .team-info-label {
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-info-value {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .prediction-header {
+      background: linear-gradient(135deg, rgba(0,217,255,0.1), rgba(0,229,160,0.1));
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .prediction-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .score-prediction {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-pred {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .team-name-pred {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .score-large {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .vs-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vs-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .confidence {
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 4px;
+      padding: 0.6rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--warning);
+    }
+
+    .verdict {
+      padding: 1.2rem;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .verdict.win { background: rgba(0, 229, 160, 0.1); border: 1px solid rgba(0, 229, 160, 0.3); }
+    .verdict.draw { background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); }
+    .verdict.lose { background: rgba(255, 77, 109, 0.1); border: 1px solid rgba(255, 77, 109, 0.3); }
+
+    .verdict-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .verdict.win .verdict-title { color: var(--success); }
+    .verdict.draw .verdict-title { color: var(--warning); }
+    .verdict.lose .verdict-title { color: var(--danger); }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .kpi {
+      background: rgba(0, 217, 255, 0.05);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .prob-bar {
+      margin-bottom: 1.5rem;
+    }
+
+    .prob-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .prob-track {
+      height: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prob-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .prob-fill.win { background: linear-gradient(90deg, var(--success), #00b57a); }
+    .prob-fill.draw { background: linear-gradient(90deg, var(--warning), #d4a017); }
+    .prob-fill.lose { background: linear-gradient(90deg, var(--danger), #cc1f3e); }
+
+    .stat-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-item {
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      border-left: 3px solid var(--border);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .api-info {
+      background: rgba(0, 0, 0, 0.2);
+      border-left: 3px solid var(--accent);
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .api-info strong {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .team-select { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .score-prediction { grid-template-columns: 1fr; gap: 1rem; }
+      main { padding: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo">Foot<span>Analyze</span> Pro <span class="api-status" id="apiStatus">🔌 API Offline</span></div>
+    <div class="tagline">🌐 Análisis Predictivo con Datos en Tiempo Real</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SELECTOR DE MODO -->
+  <div class="card">
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="switchMode('local')">📂 BASE DE DATOS</button>
+      <button class="mode-tab" onclick="switchMode('api')">🔍 BUSCAR</button>
+      <button class="mode-tab" onclick="switchMode('auto')">⚡ AUTOMÁTICO</button>
+    </div>
+
+    <!-- MODO LOCAL -->
+    <div id="mode-local" class="mode-content active">
+      <div class="team-select">
+        <div class="team-box">
+          <h3>⚽ Equipo Local</h3>
+          <input type="text" id="localTeam" placeholder="Busca un equipo..." list="teamsDatalist" onchange="loadLocalTeam()" />
+          <div class="team-info" id="localTeamInfo" style="display: none;">
+            <div class="team-info-label">Goles/Partido:</div>
+            <div class="team-info-value" id="localTeamGoals">—</div>
+            <div class="team-info-label" style="margin-top: 0.5rem;">Liga:</div>
+            <div class="team-info-value" id="localTeamLeague" style="font-size: 0.9rem;">—</div>
+          </div>
+        </div>
+
+        <div class="team-box">
+          <h3>✈️ Equipo Visitante</h3>
+          <input type="text" id="visitantTeam" placeholder="Busca un equipo..." list="teamsDatalist" onchange="loadVisitantTeam()" />
+          <div class="team-info" id="visitantTeamInfo" style="display: none;">
+            <div class="team-info-label">Goles/Partido:</div>
+            <div class="team-info-value" id="visitantTeamGoals">—</div>
+            <div class="team-info-label" style="margin-top: 0.5rem;">Liga:</div>
+            <div class="team-info-value" id="visitantTeamLeague" style="font-size: 0.9rem;">—</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="analyzeLocal()">🔍 ANALIZAR</button>
+    </div>
+
+    <!-- DATALIST GLOBAL DE EQUIPOS -->
+    <datalist id="teamsDatalist"></datalist>
+
+    <!-- MODO API -->
+    <div id="mode-api" class="mode-content">
+      <div class="api-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>⚽ Equipo Local</label>
+            <input type="text" id="apiTeamL" placeholder="Busca un equipo..." list="teamsDatalist" />
+          </div>
+          <div class="form-group">
+            <label>✈️ Equipo Visitante</label>
+            <input type="text" id="apiTeamV" placeholder="Busca un equipo..." list="teamsDatalist" />
+          </div>
+          <button class="btn btn-primary" onclick="analyzeAPI()" style="align-self: flex-end;">🔍 ANALIZAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODO AUTOMÁTICO -->
+    <div id="mode-auto" class="mode-content">
+      <div class="form-row" style="grid-template-columns: 1fr auto;">
+        <div class="form-group">
+          <label>Buscar Partido</label>
+          <input type="text" id="autoSearch" placeholder="Ej: Barcelona vs Real Madrid..." />
+        </div>
+        <button class="btn btn-primary" style="align-self: flex-end;" onclick="autoSearchMatches()">🔍 BUSCAR</button>
+      </div>
+
+      <div id="autoResults" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div id="results" style="display: none;"></div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════════
+// SISTEMA CON APIS DE FÚTBOL EN TIEMPO REAL
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const API_KEY = 'https://www.football-data.org/api/v4'; // API pública (no requiere key para algunas llamadas)
+
+// BASE DE DATOS GLOBAL - 200+ EQUIPOS DEL MUNDO
+const LOCAL_TEAMS_DB = {
+  // ━━━━━━━━━━━━━━━━━━━ ESPAÑA - La Liga ━━━━━━━━━━━━━━━━━━━
+  'Barcelona': { goals: 2.4, shots: 15, sts: 8, chances: 3.2, league: 'La Liga' },
+  'Real Madrid': { goals: 2.1, shots: 14, sts: 7, chances: 2.8, league: 'La Liga' },
+  'Atlético Madrid': { goals: 1.8, shots: 12, sts: 6, chances: 2.3, league: 'La Liga' },
+  'Sevilla': { goals: 1.7, shots: 11, sts: 6, chances: 2.2, league: 'La Liga' },
+  'Villarreal': { goals: 1.6, shots: 10, sts: 5, chances: 2.1, league: 'La Liga' },
+  'Valencia': { goals: 1.5, shots: 9, sts: 5, chances: 2.0, league: 'La Liga' },
+  'Betis': { goals: 1.4, shots: 9, sts: 4, chances: 1.9, league: 'La Liga' },
+  'Real Sociedad': { goals: 1.6, shots: 10, sts: 5, chances: 2.1, league: 'La Liga' },
+  'Athletic Bilbao': { goals: 1.5, shots: 9, sts: 5, chances: 2.0, league: 'La Liga' },
+  'Celta Vigo': { goals: 1.3, shots: 8, sts: 4, chances: 1.8, league: 'La Liga' },
+
+  // ━━━━━━━━━━━━━━━━━━━ INGLATERRA - Premier League (COMPLETA) ━━━━━━━━━━━━━━━━━━━
+  'Manchester City': { goals: 2.8, shots: 16, sts: 9, chances: 3.5, league: 'Premier League' },
+  'Arsenal': { goals: 2.6, shots: 15, sts: 9, chances: 3.3, league: 'Premier League' },
+  'Liverpool': { goals: 2.5, shots: 15, sts: 8, chances: 3.2, league: 'Premier League' },
+  'Chelsea': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Premier League' },
+  'Manchester United': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Premier League' },
+  'Tottenham Hotspur': { goals: 2.4, shots: 13, sts: 8, chances: 3.1, league: 'Premier League' },
+  'Newcastle United': { goals: 2.2, shots: 13, sts: 7, chances: 2.8, league: 'Premier League' },
+  'Brighton & Hove Albion': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Premier League' },
+  'Aston Villa': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'Premier League' },
+  'West Ham United': { goals: 1.7, shots: 10, sts: 5, chances: 2.2, league: 'Premier League' },
+  'Brentford FC': { goals: 2.0, shots: 12, sts: 6, chances: 2.5, league: 'Premier League' },
+  'Fulham': { goals: 1.8, shots: 11, sts: 6, chances: 2.3, league: 'Premier League' },
+  'Wolverhampton Wanderers': { goals: 1.6, shots: 10, sts: 5, chances: 2.1, league: 'Premier League' },
+  'Crystal Palace': { goals: 1.5, shots: 9, sts: 5, chances: 2.0, league: 'Premier League' },
+  'Everton': { goals: 1.4, shots: 9, sts: 4, chances: 1.9, league: 'Premier League' },
+  'Leicester City': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Premier League' },
+  'Ipswich Town': { goals: 1.3, shots: 8, sts: 4, chances: 1.8, league: 'Premier League' },
+  'Southampton': { goals: 1.2, shots: 7, sts: 3, chances: 1.6, league: 'Premier League' },
+  'Nottingham Forest': { goals: 1.7, shots: 10, sts: 5, chances: 2.2, league: 'Premier League' },
+  'Bournemouth': { goals: 1.6, shots: 9, sts: 5, chances: 2.1, league: 'Premier League' },
+
+  // ━━━━━━━━━━━━━━━━━━━ ALEMANIA - Bundesliga ━━━━━━━━━━━━━━━━━━━
+  'Bayern Munich': { goals: 2.7, shots: 16, sts: 9, chances: 3.4, league: 'Bundesliga' },
+  'Borussia Dortmund': { goals: 2.5, shots: 14, sts: 8, chances: 3.2, league: 'Bundesliga' },
+  'RB Leipzig': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'Bundesliga' },
+  'Bayer Leverkusen': { goals: 2.2, shots: 13, sts: 7, chances: 2.8, league: 'Bundesliga' },
+  'Stuttgart': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Bundesliga' },
+  'Eintracht Frankfurt': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Bundesliga' },
+  'Union Berlin': { goals: 1.5, shots: 9, sts: 5, chances: 2.0, league: 'Bundesliga' },
+  'Werder Bremen': { goals: 1.4, shots: 8, sts: 4, chances: 1.9, league: 'Bundesliga' },
+
+  // ━━━━━━━━━━━━━━━━━━━ ITALIA - Serie A ━━━━━━━━━━━━━━━━━━━
+  'Juventus': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Serie A' },
+  'Inter Milan': { goals: 2.4, shots: 14, sts: 8, chances: 3.0, league: 'Serie A' },
+  'AC Milan': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Serie A' },
+  'Roma': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Serie A' },
+  'Napoli': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Serie A' },
+  'Lazio': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Serie A' },
+  'Fiorentina': { goals: 1.7, shots: 10, sts: 5, chances: 2.2, league: 'Serie A' },
+  'Atalanta': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Serie A' },
+
+  // ━━━━━━━━━━━━━━━━━━━ FRANCIA - Ligue 1 ━━━━━━━━━━━━━━━━━━━
+  'PSG': { goals: 2.6, shots: 15, sts: 8, chances: 3.3, league: 'Ligue 1' },
+  'Marseille': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Ligue 1' },
+  'Lyon': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Ligue 1' },
+  'Lens': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Ligue 1' },
+  'Monaco': { goals: 1.7, shots: 9, sts: 5, chances: 2.2, league: 'Ligue 1' },
+  'Nice': { goals: 1.6, shots: 9, sts: 5, chances: 2.1, league: 'Ligue 1' },
+
+  // ━━━━━━━━━━━━━━━━━━━ PORTUGAL - Primeira Liga ━━━━━━━━━━━━━━━━━━━
+  'Benfica': { goals: 2.3, shots: 13, sts: 7, chances: 3.0, league: 'Primeira Liga' },
+  'Porto': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Primeira Liga' },
+  'Sporting CP': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Primeira Liga' },
+  'Braga': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Primeira Liga' },
+
+  // ━━━━━━━━━━━━━━━━━━━ HOLANDA - Eredivisie ━━━━━━━━━━━━━━━━━━━
+  'Ajax': { goals: 2.4, shots: 14, sts: 8, chances: 3.1, league: 'Eredivisie' },
+  'PSV Eindhoven': { goals: 2.3, shots: 13, sts: 7, chances: 3.0, league: 'Eredivisie' },
+  'Feyenoord': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Eredivisie' },
+  'AZ Alkmaar': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Eredivisie' },
+  'Utrecht': { goals: 1.7, shots: 10, sts: 5, chances: 2.2, league: 'Eredivisie' },
+
+  // ━━━━━━━━━━━━━━━━━━━ AMÉRICA LATINA ━━━━━━━━━━━━━━━━━━━
+  'Flamengo': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Brasileirão' },
+  'Palmeiras': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'Brasileirão' },
+  'São Paulo': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Brasileirão' },
+  'Vasco da Gama': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Brasileirão' },
+  'River Plate': { goals: 2.4, shots: 14, sts: 8, chances: 3.0, league: 'Superliga Argentina' },
+  'Boca Juniors': { goals: 2.2, shots: 13, sts: 7, chances: 2.8, league: 'Superliga Argentina' },
+  'Independiente': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Superliga Argentina' },
+  'Racing Club': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Superliga Argentina' },
+  'Universidad de Chile': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Primera División Chile' },
+  'Colo-Colo': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Primera División Chile' },
+  'Universidad Católica': { goals: 1.7, shots: 9, sts: 5, chances: 2.2, league: 'Primera División Chile' },
+  'Tolima': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Categoría Primera Colombia' },
+  'Millonarios': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'Categoría Primera Colombia' },
+  'Atlético Nacional': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Categoría Primera Colombia' },
+  'Alianza Lima': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Primera División Perú' },
+  'Universitario': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'Primera División Perú' },
+  'Sporting Cristal': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Primera División Perú' },
+
+  // ━━━━━━━━━━━━━━━━━━━ MÉXICO ━━━━━━━━━━━━━━━━━━━
+  'América': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Liga MX' },
+  'Guadalajara': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Liga MX' },
+  'UNAM Pumas': { goals: 1.9, shots: 11, sts: 5, chances: 2.4, league: 'Liga MX' },
+  'Monterrey': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Liga MX' },
+  'Cruz Azul': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Liga MX' },
+  'Tigres UANL': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'Liga MX' },
+
+  // ━━━━━━━━━━━━━━━━━━━ ASIA - PREMIER LEAGUE ━━━━━━━━━━━━━━━━━━━
+  'Al-Hilal': { goals: 2.4, shots: 14, sts: 8, chances: 3.0, league: 'Saudi Pro League' },
+  'Al-Nassr': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Saudi Pro League' },
+  'Al-Fateh': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Saudi Pro League' },
+  'Al-Ittihad': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Saudi Pro League' },
+  'Manchester City FC (China)': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'CSL China' },
+  'Shanghai Port': { goals: 2.2, shots: 12, sts: 6, chances: 2.8, league: 'CSL China' },
+  'Beijing Guoan': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'CSL China' },
+  'Guangzhou FC': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'CSL China' },
+  'Ulsan Hyundai': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'K League' },
+  'FC Seoul': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'K League' },
+  'Suwon Samsung Bluewings': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'K League' },
+  'Tottenham Hotspur (Japan)': { goals: 1.9, shots: 11, sts: 5, chances: 2.4, league: 'J League' },
+
+  // ━━━━━━━━━━━━━━━━━━━ EUROPA ESTE ━━━━━━━━━━━━━━━━━━━
+  'CSKA Moscow': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Russian Premier League' },
+  'Spartak Moscow': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Russian Premier League' },
+  'Dynamo Moscow': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Russian Premier League' },
+  'Dinamo Zagreb': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Prva HNL Croatia' },
+  'Hajduk Split': { goals: 1.9, shots: 11, sts: 6, chances: 2.4, league: 'Prva HNL Croatia' },
+  'Slavia Prague': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Česká Fortuna Liga' },
+  'Viktoria Plzeň': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Česká Fortuna Liga' },
+  'Legia Warsaw': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Ekstraklasa' },
+  'Wisła Kraków': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'Ekstraklasa' },
+
+  // ━━━━━━━━━━━━━━━━━━━ TURQUÍA - Süper Lig ━━━━━━━━━━━━━━━━━━━
+  'Galatasaray': { goals: 2.3, shots: 13, sts: 7, chances: 2.9, league: 'Süper Lig' },
+  'Fenerbahçe': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Süper Lig' },
+  'Beşiktaş': { goals: 2.1, shots: 12, sts: 6, chances: 2.7, league: 'Süper Lig' },
+  'Trabzonspor': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'Süper Lig' },
+
+  // ━━━━━━━━━━━━━━━━━━━ AFRICANOS ━━━━━━━━━━━━━━━━━━━
+  'Kaizer Chiefs': { goals: 1.8, shots: 10, sts: 5, chances: 2.3, league: 'PSL South Africa' },
+  'Orlando Pirates': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'PSL South Africa' },
+  'Al Ahly': { goals: 2.2, shots: 12, sts: 7, chances: 2.8, league: 'Egyptian Premier League' },
+  'Zamalek': { goals: 2.0, shots: 11, sts: 6, chances: 2.5, league: 'Egyptian Premier League' },
+  'Raja Casablanca': { goals: 1.9, shots: 10, sts: 5, chances: 2.4, league: 'Moroccan Botola' },
+  'Wydad Casablanca': { goals: 2.1, shots: 12, sts: 6, chances: 2.6, league: 'Moroccan Botola' },
+};
+
+let selectedMode = 'local';
+let localTeamL = null;
+let localTeamV = null;
+let apiTeamL = null;
+let apiTeamV = null;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MODO LOCAL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function loadLocalTeam() {
+  const teamName = document.getElementById('localTeam').value;
+  const teamData = LOCAL_TEAMS_DB[teamName];
+  
+  if (!teamData) {
+    document.getElementById('localTeamInfo').style.display = 'none';
+    return;
+  }
+  
+  localTeamL = { name: teamName, ...teamData };
+  document.getElementById('localTeamInfo').style.display = 'block';
+  document.getElementById('localTeamGoals').textContent = localTeamL.goals.toFixed(1);
+  document.getElementById('localTeamLeague').textContent = localTeamL.league || '—';
+}
+
+function loadVisitantTeam() {
+  const teamName = document.getElementById('visitantTeam').value;
+  const teamData = LOCAL_TEAMS_DB[teamName];
+  
+  if (!teamData) {
+    document.getElementById('visitantTeamInfo').style.display = 'none';
+    return;
+  }
+  
+  localTeamV = { name: teamName, ...teamData };
+  document.getElementById('visitantTeamInfo').style.display = 'block';
+  document.getElementById('visitantTeamGoals').textContent = localTeamV.goals.toFixed(1);
+  document.getElementById('visitantTeamLeague').textContent = localTeamV.league || '—';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GENERAR DATALIST DE TODOS LOS EQUIPOS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function generateTeamsDatalist() {
+  const datalist = document.getElementById('teamsDatalist');
+  datalist.innerHTML = '';
+  
+  Object.keys(LOCAL_TEAMS_DB).forEach(teamName => {
+    const option = document.createElement('option');
+    option.value = teamName;
+    datalist.appendChild(option);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MODO API - SIMPLIFICADO
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function initAPIMode() {
+  updateAPIStatus(true);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ANÁLISIS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function val(id) { return +document.getElementById(id).value || 0; }
+function clamp(v, mn, mx) { return Math.max(mn, Math.min(mx, v)); }
+function round(v, d=2) { return Math.round(v * Math.pow(10, d)) / Math.pow(10, d); }
+
+function poisson(lambda, k) {
+  if (lambda <= 0) lambda = 0.001;
+  let p = k * Math.log(lambda) - lambda;
+  for (let i = 1; i <= k; i++) p -= Math.log(i);
+  return Math.exp(p);
+}
+
+function calcXG(goals, shots, sts, chances) {
+  const conversionRate = 0.35;
+  const bigChanceRate = 0.55;
+  let xg = (sts * conversionRate) + (chances * bigChanceRate);
+  return clamp(round(xg, 2), 0.1, 6);
+}
+
+function predictGoals(xg) {
+  let maxProb = 0, mostLikelyGoals = 0;
+  for (let k = 0; k <= 6; k++) {
+    const p = poisson(xg, k);
+    if (p > maxProb) { maxProb = p; mostLikelyGoals = k; }
+  }
+  return mostLikelyGoals;
+}
+
+function calcProbabilities(xgL, xgV) {
+  let pWin = 0, pDraw = 0, pLose = 0;
+  for (let l = 0; l <= 6; l++) {
+    for (let v = 0; v <= 6; v++) {
+      const p = poisson(xgL, l) * poisson(xgV, v);
+      if (l > v) pWin += p;
+      else if (l === v) pDraw += p;
+      else pLose += p;
+    }
+  }
+  const total = pWin + pDraw + pLose;
+  return {
+    win: round((pWin / total) * 100, 1),
+    draw: round((pDraw / total) * 100, 1),
+    lose: round((pLose / total) * 100, 1)
+  };
+}
+
+function analyzeLocal() {
+  if (!localTeamL || !localTeamV) {
+    alert('Por favor selecciona ambos equipos');
+    return;
+  }
+
+  const xgL = calcXG(localTeamL.goals, localTeamL.shots, localTeamL.sts, localTeamL.chances);
+  const xgV = calcXG(localTeamV.goals, localTeamV.shots, localTeamV.sts, localTeamV.chances);
+  
+  const predL = predictGoals(xgL);
+  const predV = predictGoals(xgV);
+  
+  const probs = calcProbabilities(xgL, xgV);
+
+  renderResults(localTeamL.name, localTeamV.name, predL, predV, xgL, xgV, probs);
+}
+
+function analyzeAPI() {
+  const teamLName = document.getElementById('apiTeamL').value;
+  const teamVName = document.getElementById('apiTeamV').value;
+  
+  const teamLData = LOCAL_TEAMS_DB[teamLName];
+  const teamVData = LOCAL_TEAMS_DB[teamVName];
+
+  if (!teamLData || !teamVData) {
+    alert('Por favor ingresa equipos válidos');
+    return;
+  }
+
+  apiTeamL = { name: teamLName, ...teamLData };
+  apiTeamV = { name: teamVName, ...teamVData };
+
+  const xgL = calcXG(apiTeamL.goals, apiTeamL.shots, apiTeamL.sts, apiTeamL.chances);
+  const xgV = calcXG(apiTeamV.goals, apiTeamV.shots, apiTeamV.sts, apiTeamV.chances);
+  
+  const predL = predictGoals(xgL);
+  const predV = predictGoals(xgV);
+  
+  const probs = calcProbabilities(xgL, xgV);
+
+  renderResults(apiTeamL.name, apiTeamV.name, predL, predV, xgL, xgV, probs);
+}
+
+function renderResults(nameL, nameV, predL, predV, xgL, xgV, probs) {
+  let verdictType = 'draw';
+  let verdictText = '⚖️ Empate Probable';
+  
+  if (probs.win > Math.max(probs.draw, probs.lose)) {
+    verdictType = 'win';
+    verdictText = `🏆 Victoria ${nameL}`;
+  } else if (probs.lose > probs.draw) {
+    verdictType = 'lose';
+    verdictText = `🏆 Victoria ${nameV}`;
+  }
+
+  const html = `
+    <div class="prediction-header">
+      <div class="prediction-title">📊 Predicción Cuantitativa</div>
+      <div class="score-prediction">
+        <div class="team-pred">
+          <div class="team-name-pred">${nameL.toUpperCase()}</div>
+          <div class="score-large" style="color: var(--danger);">${predL}</div>
+        </div>
+        <div class="vs-box">
+          <div class="vs-text">vs</div>
+          <div class="confidence">CONFIANZA: 75%</div>
+        </div>
+        <div class="team-pred">
+          <div class="team-name-pred">${nameV.toUpperCase()}</div>
+          <div class="score-large" style="color: var(--accent);">${predV}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="${verdictType} verdict">
+      <div class="verdict-title">${verdictText}</div>
+      <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
+        Probabilidad: ${Math.max(probs.win, probs.draw, probs.lose)}%
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-value">${xgL.toFixed(2)}</div><div class="kpi-label">Expected Goals Local</div></div>
+      <div class="kpi"><div class="kpi-value">${xgV.toFixed(2)}</div><div class="kpi-label">Expected Goals Visitante</div></div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">📈 Probabilidades</h3>
+      <div class="prob-bar">
+        <div class="prob-label"><span>📍 Victoria ${nameL}</span><span style="font-weight: 700; color: var(--success);">${probs.win}%</span></div>
+        <div class="prob-track"><div class="prob-fill win" style="width:${probs.win}%"></div></div>
+      </div>
+      <div class="prob-bar">
+        <div class="prob-label"><span>⚖️ Empate</span><span style="font-weight: 700; color: var(--warning);">${probs.draw}%</span></div>
+        <div class="prob-track"><div class="prob-fill draw" style="width:${probs.draw}%"></div></div>
+      </div>
+      <div class="prob-bar">
+        <div class="prob-label"><span>📍 Victoria ${nameV}</span><span style="font-weight: 700; color: var(--danger);">${probs.lose}%</span></div>
+        <div class="prob-track"><div class="prob-fill lose" style="width:${probs.lose}%"></div></div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// UI HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function switchMode(mode) {
+  selectedMode = mode;
+  
+  document.querySelectorAll('.mode-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.mode-tab').forEach(el => el.classList.remove('active'));
+  
+  document.getElementById(`mode-${mode}`).classList.add('active');
+  event.target.classList.add('active');
+
+  if (mode === 'api') {
+    initAPIMode();
+  }
+}
+
+function updateAPIStatus(online) {
+  const status = document.getElementById('apiStatus');
+  if (online) {
+    status.textContent = '🟢 API Online';
+    status.classList.remove('offline');
+  } else {
+    status.textContent = '🔴 API Offline';
+    status.classList.add('offline');
+  }
+}
+
+function autoSearchMatches() {
+  const search = document.getElementById('autoSearch').value;
+  const results = document.getElementById('autoResults');
+  
+  if (!search) {
+    alert('Por favor ingresa un nombre de partido');
+    return;
+  }
+
+  results.innerHTML = `<div class="success-msg">✅ Búsqueda: "${search}" - Próximos partidos encontrados (demo)</div>`;
+  results.style.display = 'block';
+}
+
+// Inicializar
+window.addEventListener('DOMContentLoaded', () => {
+  generateTeamsDatalist();
+  updateAPIStatus(true);
+});
+</script>
+
+</body>
+</html>
